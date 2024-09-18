@@ -26,41 +26,46 @@ firebase_admin.initialize_app(cred, {
 
 @app.route('/login', methods=['POST'])
 def login():
-    username = request.json.get('username')
-    game_id = request.json.get('game_id')
+    try:
+        username = request.json.get('username')
+        game_id = request.json.get('game_id')
 
-    print(f"Login attempt: username={username}, game_id={game_id}")  # Add this line
+        print(f"Login attempt: username={username}, game_id={game_id}")
 
-    if not username or not game_id:
-        return jsonify({'success': False, 'message': 'Username and game ID are required'}), 400
+        if not username or not game_id:
+            return jsonify({'success': False, 'message': 'Username and game ID are required'}), 400
 
-    game_ref = db.reference(f'games/{game_id}')
-    game = game_ref.get()
+        game_ref = db.reference(f'games/{game_id}')
+        game = game_ref.get()
 
-    print(f"Game data: {game}")
+        print(f"Game data: {game}")
 
-    if not game:
-        return jsonify({'success': False, 'message': 'Invalid game ID'}), 404
+        if not game:
+            return jsonify({'success': False, 'message': 'Invalid game ID'}), 404
 
-    if game['player1'] == username:
-        player = 'player1'
-        session['act1'] = True
-    elif game['player2'] == username:
-        player = 'player2'
-        session['act2'] = True
-    else:
-        print(f"Username {username} not found in game {game_id}")  # Add this line
-        return jsonify({'success': False, 'message': 'Username not associated with this game'}), 403
+        if game['player1'] == username:
+            player = 'player1'
+            session['act1'] = True
+        elif game['player2'] == username:
+            player = 'player2'
+            session['act2'] = True
+        else:
+            print(f"Username {username} not found in game {game_id}")
+            return jsonify({'success': False, 'message': 'Username not associated with this game'}), 403
 
-    session['username'] = username
-    session['game_id'] = game_id
-    session['player'] = player
+        session['username'] = username
+        session['game_id'] = game_id
+        session['player'] = player
 
-    # Set game status to 'playing' if both players have joined
-    if session['act1'] and session['act2']:
-        game_ref.update({'status': 'playing'})
+        # Set game status to 'playing' if both players have joined
+        if 'act1' in session and 'act2' in session:
+            game_ref.update({'status': 'playing'})
 
-    return jsonify({'success': True, 'player': player})
+        return jsonify({'success': True, 'player': player})
+
+    except Exception as e:
+        app.logger.error(f"Error in login route: {str(e)}")
+        return jsonify({'success': False, 'message': 'An error occurred during login'}), 500
 
 @app.route('/make_choice', methods=['POST'])
 def make_choice():
