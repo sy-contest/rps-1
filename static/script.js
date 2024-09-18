@@ -156,5 +156,51 @@ function listenForGameUpdates() {
             document.getElementById('result').textContent = result;
             disableChoiceButtons();
         }
+
+        // Access act1 and act2 values
+        const act1 = game.act1 || false;
+        const act2 = game.act2 || false;
+
+        // Use act1 and act2 values as needed
+        if (act1 && act2) {
+            console.log('Both players are active');
+            // You can update UI or trigger other actions here
+        } else if (act1) {
+            console.log('Only player 1 is active');
+        } else if (act2) {
+            console.log('Only player 2 is active');
+        } else {
+            console.log('No players are active');
+        }
     });
+}
+
+function updateTimer() {
+    timerElement.textContent = timeLeft;
+    if (game.status === 'finished') {
+        return;
+    }
+    
+    if (timeLeft >= 0) {
+        if (game.player1_choice && game.player2_choice) {
+            const winner = determineWinner(game.player1_choice, game.player2_choice);
+            if (winner !== 'tie') {
+                game[`${winner}_score`] = (game[`${winner}_score`] || 0) + 1;
+            }
+            gameRef.update({
+                player1_choice: null,
+                player2_choice: null,
+                [`${winner}_score`]: game[`${winner}_score`]
+            });
+            timeLeft = 20;
+            updateTimer();
+        }
+        timeLeft--;
+        setTimeout(updateTimer, 1000);
+    } else {
+        alert("Time's up!"); // replace this line with the function that make this round a tie and go to the next round
+                            // or if one player made a choice and the other didnt then give the player who made a choice a point and go to the next round
+        timeLeft = 20;
+        updateTimer();
+    }
 }
