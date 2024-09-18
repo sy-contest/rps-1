@@ -174,7 +174,8 @@ function listenForGameUpdates() {
         }
     });
 }
-
+let timeLeft = 20;
+const timerElement = document.getElementById('timer');
 function updateTimer() {
     timerElement.textContent = timeLeft;
     if (game.status === 'finished') {
