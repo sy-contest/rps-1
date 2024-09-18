@@ -45,10 +45,10 @@ def login():
 
         if game['player1'] == username:
             player = 'player1'
-            session['act1'] = True
+            session['act1'] = 'true'
         elif game['player2'] == username:
             player = 'player2'
-            session['act2'] = True
+            session['act2'] = 'true'
         else:
             print(f"Username {username} not found in game {game_id}")
             return jsonify({'success': False, 'message': 'Username not associated with this game'}), 403
