@@ -124,7 +124,7 @@ function enableChoiceButtons() {
 
 function listenForGameUpdates() {
     if (!database) {
-        console.error('Firebase database not initialized');
+        console.log('Firebase database not initialized');
         return;
     }
     const gameRef = database.ref(`games/${currentGameId}`);
@@ -161,47 +161,72 @@ function listenForGameUpdates() {
         const act1 = game.act1 || false;
         const act2 = game.act2 || false;
 
-        // Use act1 and act2 values as needed
+        // Start the timer when both players are active
         if (act1 && act2) {
             console.log('Both players are active');
-            // You can update UI or trigger other actions here
-        } else if (act1) {
-            console.log('Only player 1 is active');
-        } else if (act2) {
-            console.log('Only player 2 is active');
+            if (!timerRunning) {
+                startTimer(gameRef, game);
+            }
         } else {
-            console.log('No players are active');
+            stopTimer();
+            console.log('Not all players are active');
         }
     });
 }
+
+let timerInterval;
+let timerRunning = false;
 let timeLeft = 20;
 const timerElement = document.getElementById('timer');
-function updateTimer() {
-    timerElement.textContent = timeLeft;
-    if (game.status === 'finished') {
-        return;
-    }
-    
-    if (timeLeft >= 0) {
-        if (game.player1_choice && game.player2_choice) {
-            const winner = determineWinner(game.player1_choice, game.player2_choice);
-            if (winner !== 'tie') {
-                game[`${winner}_score`] = (game[`${winner}_score`] || 0) + 1;
-            }
-            gameRef.update({
-                player1_choice: null,
-                player2_choice: null,
-                [`${winner}_score`]: game[`${winner}_score`]
-            });
-            timeLeft = 20;
-            updateTimer();
-        }
+
+function startTimer(gameRef, game) {
+    timerRunning = true;
+    timeLeft = 20;
+    updateTimerDisplay();
+
+    timerInterval = setInterval(() => {
         timeLeft--;
-        setTimeout(updateTimer, 1000);
+        updateTimerDisplay();
+
+        if (timeLeft <= 0) {
+            handleTimerEnd(gameRef, game);
+        }
+    }, 1000);
+}
+
+function stopTimer() {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    timerElement.textContent = '';
+}
+
+function updateTimerDisplay() {
+    timerElement.textContent = timeLeft;
+}
+
+function handleTimerEnd(gameRef, game) {
+    stopTimer();
+    
+    if (game.player1_choice && game.player2_choice) {
+        const winner = determineWinner(game.player1_choice, game.player2_choice);
+        updateScores(gameRef, game, winner);
+    } else if (game.player1_choice || game.player2_choice) {
+        const winner = game.player1_choice ? 'player1' : 'player2';
+        updateScores(gameRef, game, winner);
     } else {
-        alert("Time's up!"); // replace this line with the function that make this round a tie and go to the next round
-                            // or if one player made a choice and the other didnt then give the player who made a choice a point and go to the next round
-        timeLeft = 20;
-        updateTimer();
+        // If neither player made a choice, it's a tie
+        updateScores(gameRef, game, 'tie');
     }
+}
+
+function updateScores(gameRef, game, winner) {
+    if (winner !== 'tie') {
+        game[`${winner}_score`] = (game[`${winner}_score`] || 0) + 1;
+    }
+    gameRef.update({
+        player1_choice: null,
+        player2_choice: null,
+        [`${winner}_score`]: game[`${winner}_score`] || 0,
+        round_result: winner === 'tie' ? 'Tie' : `${winner} wins`
+    });
 }
