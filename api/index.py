@@ -13,7 +13,9 @@ load_dotenv()
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
 # Set secret key
-app.secret_key = os.getenv('FLASK_SECRET_KEY')  # Add this line
+app.secret_key = os.getenv('FLASK_SECRET_KEY')
+if not app.secret_key:
+    raise ValueError("No FLASK_SECRET_KEY set for Flask application")
 
 # Initialize Firebase
 firebase_service_account = json.loads(os.getenv('FIREBASE_SERVICE_ACCOUNT'))
