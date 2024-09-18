@@ -56,8 +56,7 @@ def login():
         session['username'] = username
         session['game_id'] = game_id
         session['player'] = player
-        session['act1'] = False
-        session['act2'] = False
+    
 
         # Set game status to 'playing' if both players have joined
         if 'act1' in session and 'act2' in session:
@@ -65,8 +64,9 @@ def login():
 
         if 'act1' in session:
             game_ref.update({'act1': 'true'})
-        if 'act2' in session:
+        elif 'act2' in session:
             game_ref.update({'act2': 'true'})
+
         return jsonify({'success': True, 'player': player})
 
     except Exception as e:
