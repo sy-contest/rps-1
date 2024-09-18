@@ -63,6 +63,10 @@ def login():
         if 'act1' in session and 'act2' in session:
             game_ref.update({'status': 'playing'})
 
+        if 'act1' in session:
+            game_ref.update({'act1': 'true'})
+        if 'act2' in session:
+            game_ref.update({'act2': 'true'})
         return jsonify({'success': True, 'player': player})
 
     except Exception as e:
