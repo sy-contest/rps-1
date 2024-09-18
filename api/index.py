@@ -28,7 +28,6 @@ firebase_admin.initialize_app(cred, {
 def login():
     try:
         username = request.json.get('username')
-
         game_id = request.json.get('game_id')
 
         print(f"Login attempt: username={username}, game_id={game_id}")
@@ -46,10 +45,10 @@ def login():
 
         if game['player1'] == username:
             player = 'player1'
-            game['act1'] = 'true'
+            game_ref.update({'act1': True})
         elif game['player2'] == username:
             player = 'player2'
-            game['act2'] = 'true'
+            game_ref.update({'act2': True})
         else:
             print(f"Username {username} not found in game {game_id}")
             return jsonify({'success': False, 'message': 'Username not associated with this game'}), 403
@@ -57,10 +56,10 @@ def login():
         session['username'] = username
         session['game_id'] = game_id
         session['player'] = player
-    
 
         # Set game status to 'playing' if both players have joined
-        if 'act1' in session and 'act2' in session:
+        updated_game = game_ref.get()
+        if updated_game.get('act1') and updated_game.get('act2'):
             game_ref.update({'status': 'playing'})
 
         return jsonify({'success': True, 'player': player})
