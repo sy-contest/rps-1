@@ -56,6 +56,8 @@ def login():
         session['username'] = username
         session['game_id'] = game_id
         session['player'] = player
+        session['act1'] = False
+        session['act2'] = False
 
         # Set game status to 'playing' if both players have joined
         if 'act1' in session and 'act2' in session:
