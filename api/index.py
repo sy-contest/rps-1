@@ -37,7 +37,7 @@ def login():
     game_ref = db.reference(f'games/{game_id}')
     game = game_ref.get()
 
-    print(f"Game data: {game}")  # Add this line
+    print(f"Game data: {game}")
 
     if not game:
         return jsonify({'success': False, 'message': 'Invalid game ID'}), 404
@@ -57,6 +57,8 @@ def login():
     # Set game status to 'playing' if both players have joined
     if game['player1'] and game['player2']:
         game_ref.update({'status': 'playing'})
+    else:
+        game_ref.update({'status': 'waiting'})
 
     return jsonify({'success': True, 'player': player})
 
