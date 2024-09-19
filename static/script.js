@@ -161,10 +161,10 @@ function listenForGameUpdates() {
         const act1 = game.act1 || false;
         const act2 = game.act2 || false;
 
-        // Start the timer when both players are active
+        // Start or restart the timer when both players are active
         if (act1 && act2) {
             console.log('Both players are active');
-            if (!game.timerStarted) {
+            if (!game.timerStarted || (game.player1_choice && game.player2_choice)) {
                 startTimer(gameRef);
             } else {
                 updateTimerFromDatabase(game.timerEnd);
@@ -224,8 +224,7 @@ function handleTimerEnd() {
         } else {
             updateScores(gameRef, game, 'tie');
         }
-        // Restart the timer after updating scores
-        startTimer(gameRef);
+        // The timer will be restarted in the listenForGameUpdates function
     });
 }
 
