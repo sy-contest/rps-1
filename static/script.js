@@ -304,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    nextBtns.forEach(btn => {
+    nextBtns.forEach((btn, index) => {
         btn.addEventListener('click', function() {
             if (currentSlide < slides.length - 1) {
                 currentSlide++;
