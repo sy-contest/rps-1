@@ -4,6 +4,13 @@
     padding: 0;
 }
 
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -12,9 +19,9 @@ body {
 }
 
 .container {
+    padding: 20px;
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
 }
 
 h1, h2, h3 {
@@ -94,15 +101,15 @@ ul {
 }
 
 .slider-container {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
 }
 
 .slider {
     display: flex;
     transition: transform 0.5s ease;
+    height: 100%;
 }
 
 .slide {
@@ -110,21 +117,24 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 200px;
+    height: 100%;
     background-color: #f0f0f0;
 }
 
 .slider-controls {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    right: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
 }
 
 #next-btn {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
 }
 
@@ -134,11 +144,11 @@ ul {
 }
 
 .dot {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background-color: #bbb;
-    margin: 0 5px;
+    margin: 0 8px;
     cursor: pointer;
 }
 

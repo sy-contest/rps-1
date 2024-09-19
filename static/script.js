@@ -33,7 +33,7 @@ function initializeSlider() {
             updateSlider();
         } else {
             document.getElementById('slider-container').style.display = 'none';
-            document.getElementById('login-form').style.display = 'block';
+            document.querySelector('.container').style.display = 'block';
         }
     });
 
