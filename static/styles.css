@@ -116,6 +116,7 @@ body {
     border-radius: 50%;
     background-color: #FFFFFF;
     margin: 0 5px;
+    border: 2px solid black; /* Add this line for the black outline */
 }
 
 .dot.active {
