@@ -129,6 +129,7 @@ ul {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 #next-btn {
@@ -136,11 +137,13 @@ ul {
     padding: 10px 20px;
     font-size: 18px;
     cursor: pointer;
+    width: 200px; /* Adjust this value to match the width of the dots container */
 }
 
 .slider-dots {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    width: 200px; /* Adjust this value to control the spread of the dots */
 }
 
 .dot {
@@ -148,7 +151,6 @@ ul {
     height: 12px;
     border-radius: 50%;
     background-color: #bbb;
-    margin: 0 8px;
     cursor: pointer;
 }
 
