@@ -46,6 +46,10 @@ body {
     background-color: #BBD9D7; /* Background color for second slider */
 }
 
+.slide-3 {
+    background-color: #FFFFFF; /* Background color for third slider */
+}
+
 .slide-content {
     display: flex;
     flex-direction: column;
@@ -137,6 +141,20 @@ body {
 
 .next-btn-2 {
     background-color: #6FAFAA; /* Button color for second slider */
+}
+
+.start-btn {
+    padding: 15px 15px;
+    font-size: 4vw;
+    font-weight: bold;
+    width: 80%;
+    max-width: 300px;
+    border: 2px solid black;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, font-size 0.3s ease, padding 0.3s ease;
 }
 
 /* Hide the app on larger screens and landscape orientation */
