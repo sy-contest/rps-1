@@ -48,8 +48,10 @@ function updateSlider() {
 
     if (currentSlide === 2) {
         nextBtn.textContent = 'Start';
+        nextBtn.classList.remove('green');
     } else {
         nextBtn.textContent = 'Next';
+        nextBtn.classList.toggle('green', currentSlide === 0);
     }
 }
 
