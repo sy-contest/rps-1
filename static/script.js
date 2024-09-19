@@ -294,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const slider = document.querySelector('.slider');
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
-    const nextBtn = document.querySelectorAll('#next-btn');
+    const nextBtns = document.querySelectorAll('#next-btn');
     let currentSlide = 0;
 
     function updateSlider() {
@@ -304,10 +304,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    nextBtn.forEach(btn => {
+    nextBtns.forEach(btn => {
         btn.addEventListener('click', function() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            updateSlider();
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlider();
+            }
         });
     });
 
