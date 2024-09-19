@@ -293,15 +293,11 @@ function updateScores(gameRef, game, winner) {
 document.addEventListener('DOMContentLoaded', function() {
     const slider = document.querySelector('.slider');
     const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.dot');
     const nextBtns = document.querySelectorAll('#next-btn');
     let currentSlide = 0;
 
     function updateSlider() {
         slider.style.transform = `translateX(-${currentSlide * 100}%)`;
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentSlide);
-        });
     }
 
     nextBtns.forEach((btn, index) => {
