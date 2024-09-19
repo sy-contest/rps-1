@@ -14,7 +14,7 @@ body, html {
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: #f4f4f4;
+    background-color: #BBD9D7; /* Updated background color */
     color: #333;
 }
 
@@ -118,11 +118,18 @@ body {
     width: 80%;
     max-width: 300px;
     border: 2px solid black;
-    background-color: #4DA14D;
     color: white;
     cursor: pointer;
     border-radius: 10px;
     transition: background-color 0.3s ease, font-size 0.3s ease, padding 0.3s ease;
+}
+
+.next-btn-1 {
+    background-color: #4DA14D; /* Button color for first slider */
+}
+
+.next-btn-2 {
+    background-color: #6FAFAA; /* Button color for second slider */
 }
 
 /* Hide the app on larger screens and landscape orientation */
