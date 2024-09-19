@@ -155,14 +155,16 @@ function listenForGameUpdates() {
             }
             document.getElementById('result').textContent = result;
             disableChoiceButtons();
+            stopTimer();
+            return; // Exit the function to prevent timer from starting
         }
 
         // Access act1 and act2 values
         const act1 = game.act1 || false;
         const act2 = game.act2 || false;
 
-        // Start or restart the timer when both players are active
-        if (act1 && act2) {
+        // Start or restart the timer when both players are active and game is not finished
+        if (act1 && act2 && game.status !== 'finished') {
             console.log('Both players are active');
             if (!game.timerStarted || (game.player1_choice && game.player2_choice)) {
                 startTimer(gameRef);
@@ -171,7 +173,7 @@ function listenForGameUpdates() {
             }
         } else {
             stopTimer();
-            console.log('Not all players are active');
+            console.log('Not all players are active or game is finished');
         }
     });
 }
@@ -215,6 +217,9 @@ function handleTimerEnd() {
     const gameRef = database.ref(`games/${currentGameId}`);
     gameRef.once('value', (snapshot) => {
         const game = snapshot.val();
+        if (game.status === 'finished') {
+            return; // Don't process if the game is already finished
+        }
         if (game.player1_choice && game.player2_choice) {
             const winner = determineWinner(game.player1_choice, game.player2_choice);
             updateScores(gameRef, game, winner);
@@ -224,7 +229,6 @@ function handleTimerEnd() {
         } else {
             updateScores(gameRef, game, 'tie');
         }
-        // The timer will be restarted in the listenForGameUpdates function
     });
 }
 
@@ -232,12 +236,19 @@ function updateScores(gameRef, game, winner) {
     if (winner !== 'tie') {
         game[`${winner}_score`] = (game[`${winner}_score`] || 0) + 1;
     }
-    gameRef.update({
+    const updates = {
         player1_choice: null,
         player2_choice: null,
         [`${winner}_score`]: game[`${winner}_score`] || 0,
         round_result: winner === 'tie' ? 'Tie' : `${winner} wins`,
-        timerStarted: false, // Reset timer started flag
-        timerEnd: null // Clear timer end
-    });
+        timerStarted: false,
+        timerEnd: null
+    };
+
+    if (game[`${winner}_score`] >= 3) {
+        updates.status = 'finished';
+        updates.winner = winner;
+    }
+
+    gameRef.update(updates);
 }

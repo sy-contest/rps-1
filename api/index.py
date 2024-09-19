@@ -113,8 +113,10 @@ def make_choice():
             final_game = game_ref.get()
             if final_game.get('player1_score', 0) >= 3:
                 game_ref.update({'status': 'finished', 'winner': 'player1'})
+                return jsonify({'success': True, 'message': 'Game finished', 'winner': 'player1'})
             elif final_game.get('player2_score', 0) >= 3:
                 game_ref.update({'status': 'finished', 'winner': 'player2'})
+                return jsonify({'success': True, 'message': 'Game finished', 'winner': 'player2'})
             else:
                 # Reset choices for the next round
                 game_ref.update({'player1_choice': None, 'player2_choice': None})
