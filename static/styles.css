@@ -36,7 +36,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #5DB55D;
+}
+
+.slide-1 {
+    background-color: #5DB55D; /* Background color for first slider */
+}
+
+.slide-2 {
+    background-color: #BBD9D7; /* Background color for second slider */
 }
 
 .slide-content {
