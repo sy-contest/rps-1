@@ -224,6 +224,8 @@ function handleTimerEnd() {
         } else {
             updateScores(gameRef, game, 'tie');
         }
+        // Restart the timer after updating scores
+        startTimer(gameRef);
     });
 }
 
@@ -235,6 +237,8 @@ function updateScores(gameRef, game, winner) {
         player1_choice: null,
         player2_choice: null,
         [`${winner}_score`]: game[`${winner}_score`] || 0,
-        round_result: winner === 'tie' ? 'Tie' : `${winner} wins`
+        round_result: winner === 'tie' ? 'Tie' : `${winner} wins`,
+        timerStarted: false, // Reset timer started flag
+        timerEnd: null // Clear timer end
     });
 }
