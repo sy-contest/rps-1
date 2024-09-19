@@ -10,7 +10,28 @@
 <body>
     <div class="container">
         <h1>Rock Paper Scissors</h1>
-        <div id="login-form" class="form-grid">
+        <div id="slider-container" class="slider-container">
+            <div class="slider">
+                <div class="slide">
+                    <h2>Slider 1</h2>
+                </div>
+                <div class="slide">
+                    <h2>Slider 2</h2>
+                </div>
+                <div class="slide">
+                    <h2>Slider 3</h2>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <button id="next-btn">Next</button>
+                <div class="slider-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </div>
+        <div id="login-form" class="form-grid" style="display: none;">
             <input type="text" id="username" placeholder="Enter your username">
             <input type="text" id="game-id" placeholder="Enter game ID">
             <button id="login-button">Login</button>

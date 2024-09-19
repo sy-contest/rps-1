@@ -20,7 +20,42 @@ fetch('/config')
         alert('Failed to load Firebase configuration. Please try again later.');
     });
 
+let currentSlide = 0;
+const slider = document.querySelector('.slider');
+const slides = document.querySelectorAll('.slide');
+const nextBtn = document.getElementById('next-btn');
+const dots = document.querySelectorAll('.dot');
+
+function initializeSlider() {
+    nextBtn.addEventListener('click', () => {
+        if (currentSlide < 2) {
+            currentSlide++;
+            updateSlider();
+        } else {
+            document.getElementById('slider-container').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+        }
+    });
+
+    updateSlider();
+}
+
+function updateSlider() {
+    slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+    });
+
+    if (currentSlide === 2) {
+        nextBtn.textContent = 'Start';
+    } else {
+        nextBtn.textContent = 'Next';
+    }
+}
+
+// Modify the existing initializeEventListeners function
 function initializeEventListeners() {
+    initializeSlider();
     document.getElementById('login-button').addEventListener('click', login);
 
     document.querySelectorAll('.choice').forEach(button => {
