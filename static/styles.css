@@ -125,10 +125,10 @@ body {
     transition: background-color 0.3s ease, font-size 0.3s ease, padding 0.3s ease;
 }
 
-/* Hide the app on larger screens */
-@media (min-width: 768px) {
+/* Hide the app on larger screens and landscape orientation */
+@media (min-width: 768px), (orientation: landscape) {
     body::before {
-        content: "This app is optimized for mobile devices only. Please use a phone to access this content.";
+        content: "This app is optimized for mobile devices in portrait mode only. Please use a phone in vertical orientation to access this content.";
         display: flex;
         justify-content: center;
         align-items: center;
@@ -140,5 +140,16 @@ body {
 
     .slider-container, .container {
         display: none;
+    }
+}
+
+/* Ensure the content is visible only in portrait mode on mobile devices */
+@media (max-width: 767px) and (orientation: portrait) {
+    body::before {
+        display: none;
+    }
+
+    .slider-container, .container {
+        display: block;
     }
 }
