@@ -22,6 +22,7 @@ body {
     padding: 20px;
     max-width: 800px;
     margin: 0 auto;
+    width: 90%;
 }
 
 h1, h2, h3 {
@@ -104,12 +105,15 @@ ul {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .slider {
+    flex-grow: 1;
     display: flex;
     transition: transform 0.5s ease;
-    height: 100%;
 }
 
 .slide {
@@ -117,15 +121,11 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
     background-color: #f0f0f0;
 }
 
 .slider-controls {
-    position: absolute;
-    bottom: 40px;
-    left: 0;
-    right: 0;
+    padding: 20px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -137,13 +137,19 @@ ul {
     padding: 10px 20px;
     font-size: 18px;
     cursor: pointer;
-    width: 200px; /* Adjust this value to match the width of the dots container */
+    width: 80%;
+    max-width: 300px;
+}
+
+.slider-dots-container {
+    width: 80%;
+    max-width: 300px;
 }
 
 .slider-dots {
     display: flex;
     justify-content: space-between;
-    width: 200px; /* Adjust this value to control the spread of the dots */
+    width: 100%;
 }
 
 .dot {
@@ -156,4 +162,29 @@ ul {
 
 .dot.active {
     background-color: #333;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    #next-btn {
+        font-size: 16px;
+        padding: 8px 16px;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    #next-btn {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+
+    .dot {
+        width: 8px;
+        height: 8px;
+    }
 }
