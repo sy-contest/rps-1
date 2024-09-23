@@ -32,9 +32,13 @@ function initializeEventListeners() {
     document.getElementById('play-button').addEventListener('click', showLoginForm);
     document.getElementById('rules-button').addEventListener('click', showRules);
     document.getElementById('login-button').addEventListener('click', login);
-    document.querySelectorAll('.choice').forEach(button => {
-        button.addEventListener('click', () => confirmChoice(button.dataset.choice));
-    });
+    document.getElementById('choices').addEventListener('click', handleChoiceClick);
+}
+
+function handleChoiceClick(event) {
+    if (event.target.classList.contains('choice')) {
+        confirmChoice(event.target.dataset.choice);
+    }
 }
 
 function nextSlide(index) {
