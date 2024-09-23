@@ -1,9 +1,8 @@
-// Global variables for database connection, game ID, and current player
 let database;
 let currentGameId = null;
 let currentPlayer = null;
 
-// Fetch Firebase configuration from server and initialize the database
+// Fetch Firebase config from server
 fetch('/config')
     .then(response => {
         if (!response.ok) {
@@ -21,44 +20,7 @@ fetch('/config')
         alert('Failed to load Firebase configuration. Please try again later.');
     });
 
-// Variables for slider functionality
-let currentSlide = 0;
-const slider = document.querySelector('.slider');
-const slides = document.querySelectorAll('.slide');
-const nextBtn = document.getElementById('next-btn');
-const dots = document.querySelectorAll('.dot');
-
-// Initialize the slider functionality
-function initializeSlider() {
-    nextBtn.addEventListener('click', () => {
-        if (currentSlide < 2) {
-            currentSlide++;
-            updateSlider();
-        } else {
-            document.getElementById('slider-container').style.display = 'none';
-            document.querySelector('.container').style.display = 'block';
-        }
-    });
-
-    updateSlider();
-}
-
-// Update the slider display based on the current slide
-function updateSlider() {
-    slider.style.transform = `translateX(-${currentSlide * 100}%)`;
-
-    if (currentSlide === 2) {
-        nextBtn.textContent = 'Start';
-        nextBtn.classList.remove('green');
-    } else {
-        nextBtn.textContent = 'Next';
-        nextBtn.classList.toggle('green', currentSlide === 0);
-    }
-}
-
-// Initialize event listeners for various UI elements
 function initializeEventListeners() {
-    initializeSlider();
     document.getElementById('login-button').addEventListener('click', login);
 
     document.querySelectorAll('.choice').forEach(button => {
@@ -66,7 +28,6 @@ function initializeEventListeners() {
     });
 }
 
-// Handle user login
 function login() {
     const username = document.getElementById('username').value;
     const gameId = document.getElementById('game-id').value;
@@ -109,14 +70,12 @@ function login() {
     });
 }
 
-// Confirm user's choice before making it
 function confirmChoice(choice) {
     if (confirm(`Are you sure you want to choose ${choice}?`)) {
         makeChoice(choice);
     }
 }
 
-// Send the user's choice to the server
 function makeChoice(choice) {
     console.log(`Making choice: ${choice}`);
     fetch('/make_choice', {
@@ -151,21 +110,18 @@ function makeChoice(choice) {
     });
 }
 
-// Disable choice buttons
 function disableChoiceButtons() {
     document.querySelectorAll('.choice').forEach(button => {
         button.disabled = true;
     });
 }
 
-// Enable choice buttons
 function enableChoiceButtons() {
     document.querySelectorAll('.choice').forEach(button => {
         button.disabled = false;
     });
 }
 
-// Listen for real-time game updates from Firebase
 function listenForGameUpdates() {
     if (!database) {
         console.log('Firebase database not initialized');
@@ -222,11 +178,9 @@ function listenForGameUpdates() {
     });
 }
 
-// Timer-related variables and functions
 let timerInterval;
 const timerElement = document.getElementById('timer');
 
-// Start the game timer
 function startTimer(gameRef) {
     const timerEnd = Date.now() + 20000; // 20 seconds from now
     gameRef.update({
@@ -236,7 +190,6 @@ function startTimer(gameRef) {
     updateTimerFromDatabase(timerEnd);
 }
 
-// Update the timer display based on the database value
 function updateTimerFromDatabase(timerEnd) {
     clearInterval(timerInterval);
     
@@ -251,18 +204,15 @@ function updateTimerFromDatabase(timerEnd) {
     }, 100); // Update more frequently for smoother countdown
 }
 
-// Stop the timer
 function stopTimer() {
     clearInterval(timerInterval);
     timerElement.textContent = '';
 }
 
-// Update the timer display
 function updateTimerDisplay(timeLeft) {
     timerElement.textContent = timeLeft;
 }
 
-// Handle actions when the timer ends
 function handleTimerEnd() {
     const gameRef = database.ref(`games/${currentGameId}`);
     gameRef.once('value', (snapshot) => {
@@ -282,7 +232,6 @@ function handleTimerEnd() {
     });
 }
 
-// Update game scores and check for game end
 function updateScores(gameRef, game, winner) {
     if (winner !== 'tie') {
         game[`${winner}_score`] = (game[`${winner}_score`] || 0) + 1;
@@ -303,64 +252,3 @@ function updateScores(gameRef, game, winner) {
 
     gameRef.update(updates);
 }
-
-// Initialize slider functionality when the DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    const slider = document.querySelector('.slider');
-    const slides = document.querySelectorAll('.slide');
-    const nextBtns = document.querySelectorAll('#next-btn');
-    const startBtn = document.querySelector('#start-btn');
-    const rulesNextBtn = document.querySelector('#rules-next-btn');
-    const playBtn = document.querySelector('#play-btn');
-    const rulesBtn = document.querySelector('#rules-btn');
-    let currentSlide = 0;
-
-    function updateSlider() {
-        slider.style.transform = `translateX(-${currentSlide * 100}%)`;
-    }
-
-    nextBtns.forEach((btn, index) => {
-        btn.addEventListener('click', function() {
-            if (currentSlide < slides.length - 1) {
-                currentSlide++;
-                updateSlider();
-            }
-        });
-    });
-
-    // Show rules page when Start button is clicked
-    if (startBtn) {
-        startBtn.addEventListener('click', function() {
-            document.getElementById('slider-container').style.display = 'none';
-            document.getElementById('rules-container').style.display = 'flex';
-        });
-    }
-
-    // Show menu page when Next button on rules page is clicked
-    if (rulesNextBtn) {
-        rulesNextBtn.addEventListener('click', function() {
-            document.getElementById('rules-container').style.display = 'none';
-            document.getElementById('menu-container').style.display = 'flex';
-        });
-    }
-
-    // Show login form when Play button on menu page is clicked
-    if (playBtn) {
-        playBtn.addEventListener('click', function() {
-            document.getElementById('menu-container').style.display = 'none';
-            document.querySelector('.container').style.display = 'block';
-        });
-    }
-
-    // Show rules page when Rules button on menu page is clicked
-    if (rulesBtn) {
-        rulesBtn.addEventListener('click', function() {
-            document.getElementById('menu-container').style.display = 'none';
-            document.getElementById('rules-container').style.display = 'flex';
-        });
-    }
-
-    updateSlider();
-});
-
-// reset vercel
