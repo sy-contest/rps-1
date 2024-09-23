@@ -277,3 +277,13 @@ body {
     justify-content: center;
     background-color: #9999FF; /* Updated background color */
 }
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    height: 100vh;
+    justify-content: center;
+    background-color: #9999FF; /* Updated background color */
+}
