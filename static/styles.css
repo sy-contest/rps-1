@@ -119,7 +119,7 @@ body {
     border: 2px solid black; /* Add this line for the black outline */
 }
 
-.dot.active {
+.dot.active {   
     background-color: black;
 }
 
@@ -185,4 +185,53 @@ body {
     .slider-container, .container {
         display: block;
     }
+}
+
+.rules-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.video-container {
+    width: 100%;
+    max-width: 560px;
+    margin-bottom: 20px;
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 315px;
+}
+
+.rules-text {
+    width: 100%;
+    max-width: 600px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.rules-text h3 {
+    margin-bottom: 10px;
+}
+
+.rules-text ul {
+    padding-left: 20px;
+}
+
+#rules-next-btn {
+    padding: 15px 30px;
+    font-size: 4vw;
+    font-weight: bold;
+    width: 80%;
+    max-width: 300px;
+    border: 2px solid black;
+    background-color: #4DA14D;
+    color: white;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
 }

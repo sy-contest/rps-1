@@ -310,6 +310,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const slides = document.querySelectorAll('.slide');
     const nextBtns = document.querySelectorAll('#next-btn');
     const startBtn = document.querySelector('#start-btn');
+    const rulesNextBtn = document.querySelector('#rules-next-btn');
     let currentSlide = 0;
 
     function updateSlider() {
@@ -325,10 +326,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add event listener for the start button
+    // Show rules page when Start button is clicked
     if (startBtn) {
         startBtn.addEventListener('click', function() {
             document.getElementById('slider-container').style.display = 'none';
+            document.getElementById('rules-container').style.display = 'flex';
+        });
+    }
+
+    // Show login form when Next button on rules page is clicked
+    if (rulesNextBtn) {
+        rulesNextBtn.addEventListener('click', function() {
+            document.getElementById('rules-container').style.display = 'none';
             document.querySelector('.container').style.display = 'block';
         });
     }
