@@ -225,16 +225,16 @@ body {
 
 #rules-next-btn {
     padding: 15px 30px;
-    font-size: 4vw;
+    font-size: 5vw; /* Increased font size */
     font-weight: bold;
     width: 80%;
     max-width: 300px;
-    border: 2px solid black;
-    background-color: #8B89E6; /* Updated button color */
+    background-color: #8B89E6; /* Button color */
     color: white;
     cursor: pointer;
     border-radius: 10px;
     transition: background-color 0.3s ease;
+    border: none; /* Removed border */
 }
 
 /* ... existing styles ... */
