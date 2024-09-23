@@ -92,3 +92,24 @@ ul {
         grid-column: 1 / -1;
     }
 }
+
+.menu-grid {
+    display: grid;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.menu-grid button {
+    padding: 15px;
+    font-size: 1.2em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.menu-grid button:hover {
+    background-color: #45a049;
+}

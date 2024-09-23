@@ -20,10 +20,31 @@ fetch('/config')
     });
 
 function initializeEventListeners() {
+    // Add event listeners for the menu buttons
+    document.getElementById('watch-stream-button').addEventListener('click', watchStream);
+    document.getElementById('play-button').addEventListener('click', showLoginForm);
+    document.getElementById('rules-button').addEventListener('click', showRules);
+
+    // Existing event listeners
     document.getElementById('login-button').addEventListener('click', login);
     document.querySelectorAll('.choice').forEach(button => {
         button.addEventListener('click', () => confirmChoice(button.dataset.choice));
     });
+}
+
+function watchStream() {
+    // Implement the watch stream functionality
+    alert('Watch stream functionality not implemented yet.');
+}
+
+function showLoginForm() {
+    document.getElementById('menu').style.display = 'none';
+    document.getElementById('login-form').style.display = 'grid';
+}
+
+function showRules() {
+    // Implement the rules display functionality
+    alert('Rules:\n1. Rock beats Scissors\n2. Scissors beats Paper\n3. Paper beats Rock');
 }
 
 function login() {
@@ -58,7 +79,7 @@ function login() {
             currentGameId = gameId;
             currentPlayer = data.player;
             document.getElementById('login-form').style.display = 'none';
-            document.getElementById('game-area').style.display = 'block';
+            document.getElementById('game-area').style.display = 'grid';
             document.getElementById('current-game-id').textContent = currentGameId;
             listenForGameUpdates();
         } else {
