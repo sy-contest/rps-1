@@ -311,6 +311,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const nextBtns = document.querySelectorAll('#next-btn');
     const startBtn = document.querySelector('#start-btn');
     const rulesNextBtn = document.querySelector('#rules-next-btn');
+    const playBtn = document.querySelector('#play-btn');
+    const rulesBtn = document.querySelector('#rules-btn');
     let currentSlide = 0;
 
     function updateSlider() {
@@ -334,11 +336,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Show login form when Next button on rules page is clicked
+    // Show menu page when Next button on rules page is clicked
     if (rulesNextBtn) {
         rulesNextBtn.addEventListener('click', function() {
             document.getElementById('rules-container').style.display = 'none';
+            document.getElementById('menu-container').style.display = 'flex';
+        });
+    }
+
+    // Show login form when Play button on menu page is clicked
+    if (playBtn) {
+        playBtn.addEventListener('click', function() {
+            document.getElementById('menu-container').style.display = 'none';
             document.querySelector('.container').style.display = 'block';
+        });
+    }
+
+    // Show rules page when Rules button on menu page is clicked
+    if (rulesBtn) {
+        rulesBtn.addEventListener('click', function() {
+            document.getElementById('menu-container').style.display = 'none';
+            document.getElementById('rules-container').style.display = 'flex';
         });
     }
 
