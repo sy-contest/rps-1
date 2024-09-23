@@ -113,3 +113,41 @@ ul {
 .menu-grid button:hover {
     background-color: #45a049;
 }
+
+.rules-page {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.rules-page h2 {
+    margin-bottom: 15px;
+}
+
+.rules-page ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.rules-page li {
+    margin-bottom: 10px;
+}
+
+.rules-page p {
+    margin-bottom: 20px;
+}
+
+#next-button {
+    padding: 10px 20px;
+    font-size: 1.1em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#next-button:hover {
+    background-color: #45a049;
+}
