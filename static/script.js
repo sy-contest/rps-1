@@ -19,16 +19,33 @@ fetch('/config')
         alert('Failed to load Firebase configuration. Please try again later.');
     });
 
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+
 function initializeEventListeners() {
+    document.querySelectorAll('.next-button').forEach((button, index) => {
+        button.addEventListener('click', () => nextSlide(index));
+    });
+    document.getElementById('start-button').addEventListener('click', showRulesPage);
     document.getElementById('next-button').addEventListener('click', showMenu);
     document.getElementById('watch-stream-button').addEventListener('click', watchStream);
     document.getElementById('play-button').addEventListener('click', showLoginForm);
     document.getElementById('rules-button').addEventListener('click', showRules);
-
     document.getElementById('login-button').addEventListener('click', login);
     document.querySelectorAll('.choice').forEach(button => {
         button.addEventListener('click', () => confirmChoice(button.dataset.choice));
     });
+}
+
+function nextSlide(index) {
+    slides[index].style.display = 'none';
+    slides[index + 1].style.display = 'block';
+    currentSlide = index + 1;
+}
+
+function showRulesPage() {
+    document.getElementById('slider').style.display = 'none';
+    document.getElementById('rules-page').style.display = 'block';
 }
 
 function showMenu() {
@@ -275,3 +292,11 @@ function updateScores(gameRef, game, winner) {
 
     gameRef.update(updates);
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    slides[0].style.display = 'block';
+    for (let i = 1; i < slides.length; i++) {
+        slides[i].style.display = 'none';
+    }
+    initializeEventListeners();
+});
