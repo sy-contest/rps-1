@@ -1,9 +1,9 @@
 import os
 import json
 from flask import Flask, render_template, request, jsonify, session
-import firebase_admin
-from firebase_admin import credentials, db
-from dotenv import load_dotenv
+import firebase_admin # type: ignore
+from firebase_admin import credentials, db # type: ignore
+from dotenv import load_dotenv # type: ignore
 from .config import get_firebase_config
 
 load_dotenv()
