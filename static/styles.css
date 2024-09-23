@@ -8,7 +8,7 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden;
+    overflow: auto; /* Allow scrolling */
 }
 
 body {
@@ -193,7 +193,7 @@ body {
     align-items: center;
     padding: 20px;
     height: 100vh;
-    overflow-y: auto;
+    overflow-y: auto; /* Allow vertical scrolling */
     background-color: #9999FF; /* Updated background color */
 }
 
