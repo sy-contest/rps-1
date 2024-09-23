@@ -194,6 +194,7 @@ body {
     padding: 20px;
     height: 100vh;
     overflow-y: auto;
+    background-color: #9999FF; /* Updated background color */
 }
 
 .video-container {
