@@ -2,17 +2,64 @@ let database;
 let currentGameId = null;
 let currentPlayer = null;
 
+let loadingProgress = 0;
+const totalSteps = 7; // Increased to account for static resources
+let resourcesLoaded = 0;
+const totalResources = 2; // Adjust this based on the number of resources (images, gifs, etc.)
+
+function updateLoadingProgress(step) {
+    loadingProgress = (step / totalSteps) * 100;
+    document.getElementById('progress').style.width = `${loadingProgress}%`;
+    document.getElementById('loading-text').textContent = `Loading... ${Math.round(loadingProgress)}%`;
+    
+    if (loadingProgress >= 100) {
+        setTimeout(() => {
+            document.getElementById('loading-page').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+        }, 500);
+    }
+}
+
+function resourceLoaded() {
+    resourcesLoaded++;
+    if (resourcesLoaded === totalResources) {
+        updateLoadingProgress(7); // Final step
+    }
+}
+
+// Preload images and other resources
+function preloadResources() {
+    const imagesToPreload = [
+        '/static/game-trophy.png',
+        // Add other image/gif URLs here
+    ];
+
+    imagesToPreload.forEach(src => {
+        const img = new Image();
+        img.src = src;
+        img.onload = resourceLoaded;
+        img.onerror = resourceLoaded; // Count errors to avoid hanging
+    });
+}
+
 fetch('/config')
     .then(response => {
+        updateLoadingProgress(1);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
     })
     .then(firebaseConfig => {
+        updateLoadingProgress(2);
         firebase.initializeApp(firebaseConfig);
+        updateLoadingProgress(3);
         database = firebase.database();
+        updateLoadingProgress(4);
         initializeEventListeners();
+        updateLoadingProgress(5);
+        preloadResources(); // Start preloading resources
+        updateLoadingProgress(6);
     })
     .catch(error => {
         console.error('Error loading Firebase config:', error);
@@ -303,4 +350,10 @@ document.addEventListener('DOMContentLoaded', () => {
         slides[i].style.display = 'none';
     }
     initializeEventListeners();
+    preloadResources(); // Start preloading resources
 });
+
+// Remove or modify the 'load' event listener if you're using the above method
+// window.addEventListener('load', () => {
+//     updateLoadingProgress(totalSteps);
+// });
