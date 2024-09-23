@@ -97,11 +97,28 @@ function nextSlide(index) {
 function showRulesPage() {
     document.getElementById('slider').style.display = 'none';
     document.getElementById('rules-page').style.display = 'block';
+    
+    // Play the YouTube video
+    const player = new YT.Player('youtube-video', {
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    event.target.playVideo();
 }
 
 function showMenu() {
     document.getElementById('rules-page').style.display = 'none';
     document.getElementById('menu').style.display = 'grid';
+    
+    // Stop the YouTube video when leaving the rules page
+    const iframe = document.getElementById('youtube-video');
+    if (iframe) {
+        iframe.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
+    }
 }
 
 function watchStream() {
@@ -353,7 +370,13 @@ document.addEventListener('DOMContentLoaded', () => {
     preloadResources(); // Start preloading resources
 });
 
-// Remove or modify the 'load' event listener if you're using the above method
-// window.addEventListener('load', () => {
-//     updateLoadingProgress(totalSteps);
-// });
+// Add this at the end of your script
+function onYouTubeIframeAPIReady() {
+    // The API is ready to use
+}
+
+// Load the YouTube IFrame Player API code asynchronously
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
