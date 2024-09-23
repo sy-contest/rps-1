@@ -309,6 +309,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const slider = document.querySelector('.slider');
     const slides = document.querySelectorAll('.slide');
     const nextBtns = document.querySelectorAll('#next-btn');
+    const startBtn = document.querySelector('#start-btn');
     let currentSlide = 0;
 
     function updateSlider() {
@@ -323,6 +324,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Add event listener for the start button
+    if (startBtn) {
+        startBtn.addEventListener('click', function() {
+            document.getElementById('slider-container').style.display = 'none';
+            document.querySelector('.container').style.display = 'block';
+        });
+    }
 
     updateSlider();
 });
