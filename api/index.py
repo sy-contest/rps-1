@@ -4,20 +4,16 @@ from flask import Flask, render_template, request, jsonify, session
 import firebase_admin
 from firebase_admin import credentials, db
 from dotenv import load_dotenv
-from .config import get_firebase_config  # Change this line
+from .config import get_firebase_config
 
-# Load environment variables
 load_dotenv()
 
-# Create Flask app
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
-# Set secret key
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
 if not app.secret_key:
     raise ValueError("No FLASK_SECRET_KEY set for Flask application")
 
-# Initialize Firebase
 firebase_service_account = json.loads(os.getenv('FIREBASE_SERVICE_ACCOUNT'))
 cred = credentials.Certificate(firebase_service_account)
 firebase_admin.initialize_app(cred, {
@@ -60,7 +56,6 @@ def login():
         session['game_id'] = game_id
         session['player'] = player
 
-        # Set game status to 'playing' if both players have joined
         updated_game = game_ref.get()
         if updated_game.get('act1') and updated_game.get('act2'):
             game_ref.update({'status': 'playing'})
@@ -91,28 +86,22 @@ def make_choice():
             return jsonify({'success': False, 'message': 'Game not found'}), 404
 
         if game['status'] != 'playing':
-            # If the game is not in playing state, check if both players are present
             if game['act1'] and game['act2']:
                 game_ref.update({'status': 'playing'})
             else:
                 return jsonify({'success': False, 'message': 'Waiting for other player to join'}), 400
 
-        # Update the player's choice
         game_ref.child(f'{player}_choice').set(choice)
 
-        # Check if both players have made their choices
         updated_game = game_ref.get()
         if updated_game.get('player1_choice') and updated_game.get('player2_choice'):
-            # Determine the winner of this round
             round_winner = determine_winner(updated_game['player1_choice'], updated_game['player2_choice'])
             
-            # Update scores
             if round_winner == 'player1':
                 game_ref.child('player1_score').set(updated_game.get('player1_score', 0) + 1)
             elif round_winner == 'player2':
                 game_ref.child('player2_score').set(updated_game.get('player2_score', 0) + 1)
 
-            # Check if a player has reached 3 points
             final_game = game_ref.get()
             if final_game.get('player1_score', 0) >= 3:
                 game_ref.update({'status': 'finished', 'winner': 'player1'})
@@ -121,7 +110,6 @@ def make_choice():
                 game_ref.update({'status': 'finished', 'winner': 'player2'})
                 return jsonify({'success': True, 'message': 'Game finished', 'winner': 'player2'})
             else:
-                # Reset choices for the next round
                 game_ref.update({'player1_choice': None, 'player2_choice': None})
 
             return jsonify({'success': True, 'message': 'Round finished', 'round_winner': round_winner})
