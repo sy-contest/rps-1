@@ -10,7 +10,24 @@
 <body>
     <div class="container">
         <h1>Rock Paper Scissors</h1>
-        <div id="rules-page" class="rules-grid">
+        <div id="slider-container" class="slider-container">
+            <div class="slide">
+                <h2>Welcome to Rock Paper Scissors!</h2>
+                <p>This is a fun game you can play with your friends.</p>
+                <button class="next-slide">Next</button>
+            </div>
+            <div class="slide">
+                <h2>How to Play</h2>
+                <p>Choose rock, paper, or scissors. The winner is decided based on what each player chooses.</p>
+                <button class="next-slide">Next</button>
+            </div>
+            <div class="slide">
+                <h2>Ready to Play?</h2>
+                <p>Click 'Start' to learn the rules and begin!</p>
+                <button id="start-button">Start</button>
+            </div>
+        </div>
+        <div id="rules-page" class="rules-grid" style="display: none;">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/ND4fd6yScBM?si=IwH3SVZ-pz5og8uq" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             <h2>Game Rules</h2>
             <p>Rock Paper Scissors is a simple game where:</p>

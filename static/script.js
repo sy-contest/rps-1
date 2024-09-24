@@ -1,6 +1,7 @@
 let database;
 let currentGameId = null;
 let currentPlayer = null;
+let currentSlide = 0;
 
 // Fetch Firebase config from server
 fetch('/config')
@@ -14,6 +15,7 @@ fetch('/config')
         firebase.initializeApp(firebaseConfig);
         database = firebase.database();
         initializeEventListeners();
+        showSlide(currentSlide);
     })
     .catch(error => {
         console.error('Error loading Firebase config:', error);
@@ -21,6 +23,10 @@ fetch('/config')
     });
 
 function initializeEventListeners() {
+    document.querySelectorAll('.next-slide').forEach(button => {
+        button.addEventListener('click', nextSlide);
+    });
+    document.getElementById('start-button').addEventListener('click', showRulesPage);
     document.getElementById('next-button').addEventListener('click', showMenu);
     document.getElementById('watch-stream-button').addEventListener('click', watchStream);
     document.getElementById('play-button').addEventListener('click', showLoginForm);
@@ -30,6 +36,26 @@ function initializeEventListeners() {
     document.querySelectorAll('.choice').forEach(button => {
         button.addEventListener('click', () => confirmChoice(button.dataset.choice));
     });
+}
+
+function showSlide(n) {
+    const slides = document.querySelectorAll('.slide');
+    slides.forEach(slide => slide.classList.remove('active'));
+    slides[n].classList.add('active');
+}
+
+function nextSlide() {
+    currentSlide++;
+    if (currentSlide >= document.querySelectorAll('.slide').length) {
+        currentSlide = 0;
+    }
+    showSlide(currentSlide);
+}
+
+function showRulesPage() {
+    document.getElementById('slider-container').style.display = 'none';
+    document.getElementById('menu').style.display = 'none';
+    document.getElementById('rules-page').style.display = 'grid';
 }
 
 function showMenu() {
@@ -44,11 +70,6 @@ function watchStream() {
 function showLoginForm() {
     document.getElementById('menu').style.display = 'none';
     document.getElementById('login-form').style.display = 'grid';
-}
-
-function showRulesPage() {
-    document.getElementById('menu').style.display = 'none';
-    document.getElementById('rules-page').style.display = 'grid';
 }
 
 function login() {

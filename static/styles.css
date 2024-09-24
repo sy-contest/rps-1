@@ -120,3 +120,21 @@ ul {
     padding: 15px;
     font-size: 1.2em;
 }
+
+/* Add these new styles */
+.slider-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.slide {
+    width: 100%;
+    text-align: center;
+    display: none;
+}
+
+.slide.active {
+    display: block;
+}
+
+/* Rest of your CSS remains the same */
