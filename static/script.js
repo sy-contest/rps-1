@@ -2,6 +2,7 @@ let database;
 let currentGameId = null;
 let currentPlayer = null;
 let currentSlide = 0;
+let youtubePlayer;
 
 // Fetch Firebase config from server
 fetch('/config')
@@ -16,6 +17,7 @@ fetch('/config')
         database = firebase.database();
         initializeEventListeners();
         showSlide(currentSlide);
+        initYouTubePlayer();
     })
     .catch(error => {
         console.error('Error loading Firebase config:', error);
@@ -27,7 +29,12 @@ function initializeEventListeners() {
         button.addEventListener('click', nextSlide);
     });
     document.getElementById('start-button').addEventListener('click', showRulesPage);
-    document.getElementById('next-button').addEventListener('click', showMenu);
+    document.getElementById('next-button').addEventListener('click', () => {
+        if (youtubePlayer && youtubePlayer.getPlayerState() === YT.PlayerState.PLAYING) {
+            youtubePlayer.pauseVideo();
+        }
+        showMenu();
+    });
     document.getElementById('watch-stream-button').addEventListener('click', watchStream);
     document.getElementById('play-button').addEventListener('click', showLoginForm);
     document.getElementById('rules-button').addEventListener('click', showRulesPage);
@@ -36,6 +43,28 @@ function initializeEventListeners() {
     document.querySelectorAll('.choice').forEach(button => {
         button.addEventListener('click', () => confirmChoice(button.dataset.choice));
     });
+}
+
+function initYouTubePlayer() {
+    // Load the YouTube IFrame Player API code asynchronously
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+}
+
+// This function will be called when the YouTube IFrame Player API is ready
+function onYouTubeIframeAPIReady() {
+    youtubePlayer = new YT.Player('youtube-player', {
+        events: {
+            'onReady': onPlayerReady,
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    // The player is ready
+    console.log('YouTube player is ready');
 }
 
 function showSlide(n) {
