@@ -3,9 +3,9 @@ let currentGameId = null;
 let currentPlayer = null;
 
 let loadingProgress = 0;
-const totalSteps = 7; // Increased to account for static resources
+const totalSteps = 7;
 let resourcesLoaded = 0;
-const totalResources = 2; // Adjust this based on the number of resources (images, gifs, etc.)
+const totalResources = 2;
 
 function updateLoadingProgress(step) {
     loadingProgress = (step / totalSteps) * 100;
@@ -23,11 +23,10 @@ function updateLoadingProgress(step) {
 function resourceLoaded() {
     resourcesLoaded++;
     if (resourcesLoaded === totalResources) {
-        updateLoadingProgress(7); // Final step
+        updateLoadingProgress(7);
     }
 }
 
-// Preload images and other resources
 function preloadResources() {
     const imagesToPreload = [
         '/static/game-trophy.png',
@@ -35,15 +34,13 @@ function preloadResources() {
         '/static/slider-1.gif',
         '/static/slider-2.gif',
         '/static/slider-3.jpg',
-
-        // Add other image/gif URLs here
     ];
 
     imagesToPreload.forEach(src => {
         const img = new Image();
         img.src = src;
         img.onload = resourceLoaded;
-        img.onerror = resourceLoaded; // Count errors to avoid hanging
+        img.onerror = resourceLoaded;
     });
 }
 
@@ -63,7 +60,7 @@ fetch('/config')
         updateLoadingProgress(4);
         initializeEventListeners();
         updateLoadingProgress(5);
-        preloadResources(); // Start preloading resources
+        preloadResources();
         updateLoadingProgress(6);
     })
     .catch(error => {
@@ -103,7 +100,6 @@ function showRulesPage() {
     document.getElementById('slider').style.display = 'none';
     document.getElementById('rules-page').style.display = 'block';
     
-    // Play the YouTube video
     const player = new YT.Player('youtube-video', {
         events: {
             'onReady': onPlayerReady
@@ -119,7 +115,6 @@ function showMenu() {
     document.getElementById('rules-page').style.display = 'none';
     document.getElementById('menu').style.display = 'grid';
     
-    // Stop the YouTube video when leaving the rules page
     const iframe = document.getElementById('youtube-video');
     if (iframe) {
         iframe.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
@@ -281,15 +276,12 @@ document.addEventListener('DOMContentLoaded', () => {
         slides[i].style.display = 'none';
     }
     initializeEventListeners();
-    preloadResources(); // Start preloading resources
+    preloadResources();
 });
 
-// Add this at the end of your script
 function onYouTubeIframeAPIReady() {
-    // The API is ready to use
 }
 
-// Load the YouTube IFrame Player API code asynchronously
 var tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
