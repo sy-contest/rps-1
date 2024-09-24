@@ -35,7 +35,7 @@ function preloadResources() {
         '/static/slider-1.gif',
         '/static/slider-2.gif',
         '/static/slider-3.jpg',
-        '/static/login-logo.png',  // Add this line
+
         // Add other image/gif URLs here
     ];
 
@@ -138,16 +138,6 @@ function showLoginForm() {
 function showRules() {
     document.getElementById('menu').style.display = 'none';
     document.getElementById('rules-page').style.display = 'block';
-    
-    // Force a reflow to ensure the rules page is displayed correctly
-    void document.getElementById('rules-page').offsetHeight;
-    
-    // Play the YouTube video
-    const player = new YT.Player('youtube-video', {
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
 }
 
 function login() {
@@ -292,7 +282,7 @@ function listenForGameUpdates() {
             if (!game.timerStarted || (game.player1_choice && game.player2_choice)) {
                 startTimer(gameRef);
             } else {
-                updateTimerFromDatabase(game);
+                updateTimerFromDatabase(game.timerEnd);
             }
         } else {
             stopTimer();
@@ -305,40 +295,26 @@ let timerInterval;
 const timerElement = document.getElementById('timer');
 
 function startTimer(gameRef) {
-    const serverTime = firebase.database.ServerValue.TIMESTAMP;
-    const timerDuration = 20000; // 20 seconds
-
+    const timerEnd = Date.now() + 20000;
     gameRef.update({
         timerStarted: true,
-        timerStart: serverTime,
-        timerDuration: timerDuration
+        timerEnd: timerEnd
     });
+    updateTimerFromDatabase(timerEnd);
 }
 
-function updateTimerFromDatabase(game) {
+function updateTimerFromDatabase(timerEnd) {
     clearInterval(timerInterval);
     
-    if (!game.timerStart || !game.timerDuration) {
-        return;
-    }
+    timerInterval = setInterval(() => {
+        const timeLeft = Math.max(0, Math.ceil((timerEnd - Date.now()) / 1000));
+        updateTimerDisplay(timeLeft);
 
-    const serverTimeOffset = database.ref('.info/serverTimeOffset');
-    serverTimeOffset.once('value', (snapshot) => {
-        const offset = snapshot.val() || 0;
-        const estimatedServerTime = Date.now() + offset;
-        const elapsedTime = estimatedServerTime - game.timerStart;
-        const remainingTime = Math.max(0, game.timerDuration - elapsedTime);
-
-        timerInterval = setInterval(() => {
-            const timeLeft = Math.max(0, Math.ceil((remainingTime - (Date.now() - estimatedServerTime)) / 1000));
-            updateTimerDisplay(timeLeft);
-
-            if (timeLeft <= 0) {
-                clearInterval(timerInterval);
-                handleTimerEnd();
-            }
-        }, 100);
-    });
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            handleTimerEnd();
+        }
+    }, 100);
 }
 
 function stopTimer() {
@@ -352,29 +328,19 @@ function updateTimerDisplay(timeLeft) {
 
 function handleTimerEnd() {
     const gameRef = database.ref(`games/${currentGameId}`);
-    const serverTime = firebase.database.ServerValue.TIMESTAMP;
-
-    gameRef.update({
-        timerEnded: serverTime
-    }, (error) => {
-        if (error) {
-            console.error('Error updating timer end:', error);
+    gameRef.once('value', (snapshot) => {
+        const game = snapshot.val();
+        if (game.status === 'finished') {
+            return;
+        }
+        if (game.player1_choice && game.player2_choice) {
+            const winner = determineWinner(game.player1_choice, game.player2_choice);
+            updateScores(gameRef, game, winner);
+        } else if (game.player1_choice || game.player2_choice) {
+            const winner = game.player1_choice ? 'player1' : 'player2';
+            updateScores(gameRef, game, winner);
         } else {
-            gameRef.once('value', (snapshot) => {
-                const game = snapshot.val();
-                if (game.status === 'finished') {
-                    return;
-                }
-                if (game.player1_choice && game.player2_choice) {
-                    const winner = determineWinner(game.player1_choice, game.player2_choice);
-                    updateScores(gameRef, game, winner);
-                } else if (game.player1_choice || game.player2_choice) {
-                    const winner = game.player1_choice ? 'player1' : 'player2';
-                    updateScores(gameRef, game, winner);
-                } else {
-                    updateScores(gameRef, game, 'tie');
-                }
-            });
+            updateScores(gameRef, game, 'tie');
         }
     });
 }
