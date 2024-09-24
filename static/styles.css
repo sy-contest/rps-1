@@ -92,3 +92,15 @@ ul {
         grid-column: 1 / -1;
     }
 }
+
+.menu-grid {
+    display: grid;
+    gap: 20px;
+    text-align: center;
+}
+
+.menu-grid button {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2em;
+}

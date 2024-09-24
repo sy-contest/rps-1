@@ -21,11 +21,27 @@ fetch('/config')
     });
 
 function initializeEventListeners() {
+    document.getElementById('watch-stream-button').addEventListener('click', watchStream);
+    document.getElementById('play-button').addEventListener('click', showLoginForm);
+    document.getElementById('rules-button').addEventListener('click', showRules);
     document.getElementById('login-button').addEventListener('click', login);
 
     document.querySelectorAll('.choice').forEach(button => {
         button.addEventListener('click', () => confirmChoice(button.dataset.choice));
     });
+}
+
+function watchStream() {
+    alert('Watch Stream feature is not implemented yet.');
+}
+
+function showLoginForm() {
+    document.getElementById('menu').style.display = 'none';
+    document.getElementById('login-form').style.display = 'grid';
+}
+
+function showRules() {
+    alert('Rules feature is not implemented yet.');
 }
 
 function login() {
