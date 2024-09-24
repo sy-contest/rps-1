@@ -204,12 +204,25 @@ function listenForGameUpdates() {
 }
 
 function checkOrientation() {
-    if (window.innerHeight < window.innerWidth) {
-        document.getElementById('rotate-message').style.display = 'flex';
-        document.getElementById('mobile-content').style.display = 'none';
+    const desktopMessage = document.getElementById('desktop-message');
+    const rotateMessage = document.getElementById('rotate-message');
+    const mobileContent = document.getElementById('mobile-content');
+
+    if (window.innerWidth >= 768) {
+        // Desktop view
+        if (desktopMessage) desktopMessage.style.display = 'flex';
+        if (rotateMessage) rotateMessage.style.display = 'none';
+        if (mobileContent) mobileContent.style.display = 'none';
+    } else if (window.innerHeight < window.innerWidth) {
+        // Mobile landscape view
+        if (desktopMessage) desktopMessage.style.display = 'none';
+        if (rotateMessage) rotateMessage.style.display = 'flex';
+        if (mobileContent) mobileContent.style.display = 'none';
     } else {
-        document.getElementById('rotate-message').style.display = 'none';
-        document.getElementById('mobile-content').style.display = 'block';
+        // Mobile portrait view
+        if (desktopMessage) desktopMessage.style.display = 'none';
+        if (rotateMessage) rotateMessage.style.display = 'none';
+        if (mobileContent) mobileContent.style.display = 'block';
     }
 }
 
