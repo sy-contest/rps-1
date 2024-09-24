@@ -272,15 +272,6 @@ function listenForGameUpdates() {
             disableChoiceButtons();
             return;
         }
-
-        const act1 = game.act1 || false;
-        const act2 = game.act2 || false;
-
-        if (act1 && act2 && game.status !== 'finished') {
-            console.log('Both players are active');
-        } else {
-            console.log('Not all players are active or game is finished');
-        }
     });
 }
 

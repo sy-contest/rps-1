@@ -44,10 +44,8 @@ def login():
 
         if game['player1'] == username:
             player = 'player1'
-            game_ref.update({'act1': True})
         elif game['player2'] == username:
             player = 'player2'
-            game_ref.update({'act2': True})
         else:
             print(f"Username {username} not found in game {game_id}")
             return jsonify({'success': False, 'message': 'Username not associated with this game'}), 403
@@ -55,10 +53,6 @@ def login():
         session['username'] = username
         session['game_id'] = game_id
         session['player'] = player
-
-        updated_game = game_ref.get()
-        if updated_game.get('act1') and updated_game.get('act2'):
-            game_ref.update({'status': 'playing'})
 
         return jsonify({'success': True, 'player': player})
 
@@ -86,10 +80,7 @@ def make_choice():
             return jsonify({'success': False, 'message': 'Game not found'}), 404
 
         if game['status'] != 'playing':
-            if game['act1'] and game['act2']:
-                game_ref.update({'status': 'playing'})
-            else:
-                return jsonify({'success': False, 'message': 'Waiting for other player to join'}), 400
+            return jsonify({'success': False, 'message': 'Waiting for other player to join'}), 400
 
         game_ref.child(f'{player}_choice').set(choice)
 
