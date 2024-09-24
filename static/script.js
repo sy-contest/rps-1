@@ -270,7 +270,6 @@ function listenForGameUpdates() {
             }
             document.getElementById('result').textContent = result;
             disableChoiceButtons();
-            stopTimer();
             return;
         }
 
@@ -279,91 +278,10 @@ function listenForGameUpdates() {
 
         if (act1 && act2 && game.status !== 'finished') {
             console.log('Both players are active');
-            if (!game.timerStarted || (game.player1_choice && game.player2_choice)) {
-                startTimer(gameRef);
-            } else {
-                updateTimerFromDatabase(game.timerEnd);
-            }
         } else {
-            stopTimer();
             console.log('Not all players are active or game is finished');
         }
     });
-}
-
-let timerInterval;
-const timerElement = document.getElementById('timer');
-
-function startTimer(gameRef) {
-    const timerEnd = Date.now() + 20000;
-    gameRef.update({
-        timerStarted: true,
-        timerEnd: timerEnd
-    });
-    updateTimerFromDatabase(timerEnd);
-}
-
-function updateTimerFromDatabase(timerEnd) {
-    clearInterval(timerInterval);
-    
-    timerInterval = setInterval(() => {
-        const timeLeft = Math.max(0, Math.ceil((timerEnd - Date.now()) / 1000));
-        updateTimerDisplay(timeLeft);
-
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            handleTimerEnd();
-        }
-    }, 100);
-}
-
-function stopTimer() {
-    clearInterval(timerInterval);
-    timerElement.textContent = '';
-}
-
-function updateTimerDisplay(timeLeft) {
-    timerElement.textContent = timeLeft;
-}
-
-function handleTimerEnd() {
-    const gameRef = database.ref(`games/${currentGameId}`);
-    gameRef.once('value', (snapshot) => {
-        const game = snapshot.val();
-        if (game.status === 'finished') {
-            return;
-        }
-        if (game.player1_choice && game.player2_choice) {
-            const winner = determineWinner(game.player1_choice, game.player2_choice);
-            updateScores(gameRef, game, winner);
-        } else if (game.player1_choice || game.player2_choice) {
-            const winner = game.player1_choice ? 'player1' : 'player2';
-            updateScores(gameRef, game, winner);
-        } else {
-            updateScores(gameRef, game, 'tie');
-        }
-    });
-}
-
-function updateScores(gameRef, game, winner) {
-    if (winner !== 'tie') {
-        game[`${winner}_score`] = (game[`${winner}_score`] || 0) + 1;
-    }
-    const updates = {
-        player1_choice: null,
-        player2_choice: null,
-        [`${winner}_score`]: game[`${winner}_score`] || 0,
-        round_result: winner === 'tie' ? 'Tie' : `${winner} wins`,
-        timerStarted: false,
-        timerEnd: null
-    };
-
-    if (game[`${winner}_score`] >= 3) {
-        updates.status = 'finished';
-        updates.winner = winner;
-    }
-
-    gameRef.update(updates);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
