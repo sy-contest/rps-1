@@ -99,6 +99,16 @@ ul {
     margin-top: 20px;
 }
 
+.menu-logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.menu-logo img {
+    max-width: 200px;
+    height: auto;
+}
+
 .menu-grid button {
     padding: 15px;
     font-size: 1.2em;
