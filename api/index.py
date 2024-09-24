@@ -42,6 +42,9 @@ def login():
     if not game:
         return jsonify({'success': False, 'message': 'Invalid game ID'}), 404
 
+    if game['status'] == 'finished':
+        return jsonify({'success': False, 'message': 'Game has already finished'}), 403
+
     if game['player1'] == username:
         player = 'player1'
     elif game['player2'] == username:
