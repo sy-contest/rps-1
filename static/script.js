@@ -24,7 +24,7 @@ function initializeEventListeners() {
     document.getElementById('next-button').addEventListener('click', showMenu);
     document.getElementById('watch-stream-button').addEventListener('click', watchStream);
     document.getElementById('play-button').addEventListener('click', showLoginForm);
-    document.getElementById('rules-button').addEventListener('click', showRules);
+    document.getElementById('rules-button').addEventListener('click', showRulesPage);
     document.getElementById('login-button').addEventListener('click', login);
 
     document.querySelectorAll('.choice').forEach(button => {
@@ -46,8 +46,9 @@ function showLoginForm() {
     document.getElementById('login-form').style.display = 'grid';
 }
 
-function showRules() {
-    alert('Rules feature is not implemented yet.');
+function showRulesPage() {
+    document.getElementById('menu').style.display = 'none';
+    document.getElementById('rules-page').style.display = 'grid';
 }
 
 function login() {
