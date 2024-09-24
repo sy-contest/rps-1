@@ -202,3 +202,16 @@ function listenForGameUpdates() {
         }
     });
 }
+
+function checkOrientation() {
+    if (window.innerHeight < window.innerWidth) {
+        document.getElementById('rotate-message').style.display = 'flex';
+        document.getElementById('mobile-content').style.display = 'none';
+    } else {
+        document.getElementById('rotate-message').style.display = 'none';
+        document.getElementById('mobile-content').style.display = 'block';
+    }
+}
+
+window.addEventListener('load', checkOrientation);
+window.addEventListener('resize', checkOrientation);

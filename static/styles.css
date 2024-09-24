@@ -12,48 +12,40 @@ body {
 }
 
 .container {
-    max-width: 800px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
 }
 
-h1, h2, h3 {
+h1 {
+    font-size: 24px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
-.form-grid {
-    display: grid;
-    gap: 10px;
-}
-
-.game-grid {
-    display: grid;
-    gap: 20px;
-}
-
-.players-grid {
-    display: grid;
-    gap: 10px;
-}
-
-.choices-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-}
-
-.result-grid {
+h2 {
+    font-size: 20px;
     text-align: center;
-    font-size: 1.2em;
-    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.form-grid, .game-grid, .players-grid, .choices-grid, .result-grid, .menu-grid, .rules-grid {
+    display: grid;
+    gap: 10px;
 }
 
 input, button {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    font-size: 16px;
 }
 
 button {
@@ -69,59 +61,9 @@ button:hover {
 
 ul {
     list-style-type: none;
+    padding-left: 0;
 }
 
-@media (min-width: 600px) {
-    .form-grid {
-        grid-template-columns: 1fr 1fr auto;
-    }
-
-    .game-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .players-grid {
-        grid-column: 1 / -1;
-    }
-
-    .choices-grid {
-        grid-column: 1 / -1;
-    }
-
-    .result-grid {
-        grid-column: 1 / -1;
-    }
-}
-
-.menu-grid {
-    display: grid;
-    gap: 20px;
-    text-align: center;
-}
-
-.menu-grid button {
-    width: 100%;
-    padding: 15px;
-    font-size: 1.2em;
-}
-
-.rules-grid {
-    display: grid;
-    gap: 20px;
-    text-align: center;
-}
-
-.rules-grid iframe {
-    margin: 0 auto;
-}
-
-.rules-grid button {
-    width: 100%;
-    padding: 15px;
-    font-size: 1.2em;
-}
-
-/* Add these new styles */
 .slider-container {
     width: 100%;
     overflow: hidden;
@@ -137,4 +79,52 @@ ul {
     display: block;
 }
 
-/* Rest of your CSS remains the same */
+.desktop-message, .rotate-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    z-index: 1000;
+    text-align: center;
+    padding: 20px;
+}
+
+@media (min-width: 768px) {
+    .desktop-message {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #mobile-content {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) and (orientation: landscape) {
+    .rotate-message {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #mobile-content {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) and (orientation: portrait) {
+    #mobile-content {
+        display: block;
+    }
+}
+
+.rules-grid iframe {
+    width: 100%;
+    height: 200px;
+}
