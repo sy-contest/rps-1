@@ -1,19 +1,23 @@
 import os
 import json
 from flask import Flask, render_template, request, jsonify, session
-import firebase_admin # type: ignore
-from firebase_admin import credentials, db # type: ignore
-from dotenv import load_dotenv # type: ignore
-from .config import get_firebase_config
+import firebase_admin
+from firebase_admin import credentials, db
+from dotenv import load_dotenv
+from .config import get_firebase_config  # Change this line
 
+# Load environment variables
 load_dotenv()
 
+# Create Flask app
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
+# Set secret key
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
 if not app.secret_key:
     raise ValueError("No FLASK_SECRET_KEY set for Flask application")
 
+# Initialize Firebase
 firebase_service_account = json.loads(os.getenv('FIREBASE_SERVICE_ACCOUNT'))
 cred = credentials.Certificate(firebase_service_account)
 firebase_admin.initialize_app(cred, {
@@ -22,43 +26,39 @@ firebase_admin.initialize_app(cred, {
 
 @app.route('/login', methods=['POST'])
 def login():
-    try:
-        username = request.json.get('username')
-        game_id = request.json.get('game_id')
+    username = request.json.get('username')
+    game_id = request.json.get('game_id')
 
-        print(f"Login attempt: username={username}, game_id={game_id}")
+    print(f"Login attempt: username={username}, game_id={game_id}")  # Add this line
 
-        if not username or not game_id:
-            return jsonify({'success': False, 'message': 'Username and game ID are required'}), 400
+    if not username or not game_id:
+        return jsonify({'success': False, 'message': 'Username and game ID are required'}), 400
 
-        game_ref = db.reference(f'games/{game_id}')
-        game = game_ref.get()
+    game_ref = db.reference(f'games/{game_id}')
+    game = game_ref.get()
 
-        print(f"Game data: {game}")
+    print(f"Game data: {game}")  # Add this line
 
-        if not game:
-            return jsonify({'success': False, 'message': 'Invalid game ID'}), 404
+    if not game:
+        return jsonify({'success': False, 'message': 'Invalid game ID'}), 404
 
-        if game['status'] == 'finished':
-            return jsonify({'success': False, 'message': 'The game is finished'}), 403
+    if game['player1'] == username:
+        player = 'player1'
+    elif game['player2'] == username:
+        player = 'player2'
+    else:
+        print(f"Username {username} not found in game {game_id}")  # Add this line
+        return jsonify({'success': False, 'message': 'Username not associated with this game'}), 403
 
-        if game['player1'] == username:
-            player = 'player1'
-        elif game['player2'] == username:
-            player = 'player2'
-        else:
-            print(f"Username {username} not found in game {game_id}")
-            return jsonify({'success': False, 'message': 'Username not associated with this game'}), 403
+    session['username'] = username
+    session['game_id'] = game_id
+    session['player'] = player
 
-        session['username'] = username
-        session['game_id'] = game_id
-        session['player'] = player
+    # Set game status to 'playing' if both players have joined
+    if game['player1'] and game['player2']:
+        game_ref.update({'status': 'playing'})
 
-        return jsonify({'success': True, 'player': player})
-
-    except Exception as e:
-        app.logger.error(f"Error in login route: {str(e)}")
-        return jsonify({'success': False, 'message': 'An error occurred during login'}), 500
+    return jsonify({'success': True, 'player': player})
 
 @app.route('/make_choice', methods=['POST'])
 def make_choice():
@@ -80,27 +80,35 @@ def make_choice():
             return jsonify({'success': False, 'message': 'Game not found'}), 404
 
         if game['status'] != 'playing':
-            return jsonify({'success': False, 'message': 'Waiting for other player to join'}), 400
+            # If the game is not in playing state, check if both players are present
+            if game['player1'] and game['player2']:
+                game_ref.update({'status': 'playing'})
+            else:
+                return jsonify({'success': False, 'message': 'Waiting for other player to join'}), 400
 
+        # Update the player's choice
         game_ref.child(f'{player}_choice').set(choice)
 
+        # Check if both players have made their choices
         updated_game = game_ref.get()
         if updated_game.get('player1_choice') and updated_game.get('player2_choice'):
+            # Determine the winner of this round
             round_winner = determine_winner(updated_game['player1_choice'], updated_game['player2_choice'])
             
+            # Update scores
             if round_winner == 'player1':
                 game_ref.child('player1_score').set(updated_game.get('player1_score', 0) + 1)
             elif round_winner == 'player2':
                 game_ref.child('player2_score').set(updated_game.get('player2_score', 0) + 1)
 
+            # Check if a player has reached 3 points
             final_game = game_ref.get()
             if final_game.get('player1_score', 0) >= 3:
                 game_ref.update({'status': 'finished', 'winner': 'player1'})
-                return jsonify({'success': True, 'message': 'Game finished', 'winner': 'player1'})
             elif final_game.get('player2_score', 0) >= 3:
                 game_ref.update({'status': 'finished', 'winner': 'player2'})
-                return jsonify({'success': True, 'message': 'Game finished', 'winner': 'player2'})
             else:
+                # Reset choices for the next round
                 game_ref.update({'player1_choice': None, 'player2_choice': None})
 
             return jsonify({'success': True, 'message': 'Round finished', 'round_winner': round_winner})
