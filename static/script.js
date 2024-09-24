@@ -31,6 +31,11 @@ function resourceLoaded() {
 function preloadResources() {
     const imagesToPreload = [
         '/static/game-trophy.png',
+        '/static/menu-logo.png',
+        '/static/slider-1.gif',
+        '/static/slider-2.gif',
+        '/static/slider-3.jpg',
+
         // Add other image/gif URLs here
     ];
 
