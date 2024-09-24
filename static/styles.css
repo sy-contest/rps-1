@@ -104,3 +104,15 @@ ul {
     padding: 15px;
     font-size: 1.2em;
 }
+
+.rules-grid {
+    display: grid;
+    gap: 20px;
+    text-align: center;
+}
+
+.rules-grid button {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2em;
+}

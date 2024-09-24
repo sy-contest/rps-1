@@ -21,6 +21,7 @@ fetch('/config')
     });
 
 function initializeEventListeners() {
+    document.getElementById('next-button').addEventListener('click', showMenu);
     document.getElementById('watch-stream-button').addEventListener('click', watchStream);
     document.getElementById('play-button').addEventListener('click', showLoginForm);
     document.getElementById('rules-button').addEventListener('click', showRules);
@@ -29,6 +30,11 @@ function initializeEventListeners() {
     document.querySelectorAll('.choice').forEach(button => {
         button.addEventListener('click', () => confirmChoice(button.dataset.choice));
     });
+}
+
+function showMenu() {
+    document.getElementById('rules-page').style.display = 'none';
+    document.getElementById('menu').style.display = 'grid';
 }
 
 function watchStream() {
