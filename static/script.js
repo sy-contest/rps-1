@@ -138,6 +138,16 @@ function showLoginForm() {
 function showRules() {
     document.getElementById('menu').style.display = 'none';
     document.getElementById('rules-page').style.display = 'block';
+    
+    // Force a reflow to ensure the rules page is displayed correctly
+    void document.getElementById('rules-page').offsetHeight;
+    
+    // Play the YouTube video
+    const player = new YT.Player('youtube-video', {
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
 }
 
 function login() {
