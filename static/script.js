@@ -35,7 +35,7 @@ function preloadResources() {
         '/static/slider-1.gif',
         '/static/slider-2.gif',
         '/static/slider-3.jpg',
-
+        '/static/login-logo.png',  // Add this line
         // Add other image/gif URLs here
     ];
 
