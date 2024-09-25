@@ -206,6 +206,10 @@ function listenForGameUpdates() {
         document.getElementById('player1-name').textContent = `${game.player1} (${game.player1_score || 0})`;
         document.getElementById('player2-name').textContent = game.player2 ? `${game.player2} (${game.player2_score || 0})` : 'Waiting for player...';
 
+        // Update player photos
+        updatePlayerPhoto('player1', currentGameId);
+        updatePlayerPhoto('player2', currentGameId);
+
         if (game.status === 'waiting') {
             document.getElementById('result').textContent = 'Waiting for other player to join...';
             disableChoiceButtons();
@@ -230,6 +234,18 @@ function listenForGameUpdates() {
             disableChoiceButtons();
         }
     });
+}
+
+function updatePlayerPhoto(player, gameId) {
+    const imgElement = document.getElementById(`${player}-photo`);
+    const photoUrl = `/static/images/${gameId}/${player}.png`;
+    
+    imgElement.onerror = function() {
+        this.onerror = null; // Prevent infinite loop
+        this.src = '/static/default-avatar.png'; // Fallback to default avatar
+    };
+    
+    imgElement.src = photoUrl;
 }
 
 function checkOrientation() {
