@@ -294,6 +294,20 @@ ul {
     box-sizing: border-box; /* Include padding and border in the width */
 }
 
+.up-arrow {
+    width: 30px; /* Adjust size as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Space between the arrow and player name */
+}
+
+.current-player-info span {
+    font-weight: bold;
+    color: #333;
+    font-size: 18px;
+    flex-grow: 1; /* Allow the text to take up remaining space */
+    text-align: center; /* Center the text */
+}
+
 .current-player-info img {
     width: 50px; /* Profile picture size */
     height: 50px;
