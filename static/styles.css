@@ -292,7 +292,22 @@ ul {
     border: 2px solid black;
     width: 80%;
     box-sizing: border-box;
-    transition: padding-top 0.3s ease, border-radius 0.3s ease;
+}
+
+.current-player-info span {
+    font-weight: bold;
+    color: #333;
+    font-size: 18px;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.current-player-info #current-player-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
 }
 
 .current-player-info.expanded {
