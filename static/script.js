@@ -207,11 +207,8 @@ function listenForGameUpdates() {
             console.error('Game data not found');
             return;
         }
-        
-        document.getElementById('player1-name').textContent = `${game.player1} (${game.player1_score || 0})`;
-        
+                
         if (game.player2) {
-            document.getElementById('player2-name').textContent = `${game.player2} (${game.player2_score || 0})`;
             updatePlayerPhoto('player2', currentGameId);
         } else {
             document.getElementById('player2-name').textContent = 'Waiting for player...';
