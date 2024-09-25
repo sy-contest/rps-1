@@ -85,13 +85,18 @@ function nextSlide() {
 }
  
 function showRulesPage() {
+    document.getElementById('mobile-content').className = 'container rules-page';
     document.getElementById('slider-container').style.display = 'none';
     document.getElementById('menu').style.display = 'none';
     document.getElementById('rules-page').style.display = 'grid';
 }
 
 function showMenu() {
+    document.getElementById('mobile-content').className = 'container menu-page';
+    document.getElementById('slider-container').style.display = 'none';
     document.getElementById('rules-page').style.display = 'none';
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('game-area').style.display = 'none';
     document.getElementById('menu').style.display = 'grid';
 }
 
@@ -100,6 +105,7 @@ function watchStream() {
 }
 
 function showLoginForm() {
+    document.getElementById('mobile-content').className = 'container login-page';
     document.getElementById('menu').style.display = 'none';
     document.getElementById('login-form').style.display = 'grid';
 }

@@ -241,26 +241,35 @@ ul {
 }
 
 /* Add these new rules to set the background color for specific pages */
-#rules-page,
-#menu,
-#login-form,
-#game-area {
+#mobile-content.rules-page,
+#mobile-content.menu-page,
+#mobile-content.login-page,
+#mobile-content.game-page {
     background-color: #9999FF;
 }
 
 /* Update the text color for better contrast on the new background */
+#mobile-content.rules-page,
+#mobile-content.menu-page,
+#mobile-content.login-page,
+#mobile-content.game-page {
+    color: #FFFFFF;
+}
+
+/* Remove the background color from the child elements */
 #rules-page,
 #menu,
 #login-form,
 #game-area {
-    color: #FFFFFF;
+    background-color: transparent;
 }
 
-/* Update button styles for better visibility on the new background */
+/* Keep the button and input styles as they were */
 #rules-page button,
 #menu button,
 #login-form button,
-#game-area button {
+#game-area button,
+#login-form input {
     background-color: #FFFFFF;
     color: #333333;
 }
