@@ -80,7 +80,7 @@ function nextSlide() {
     }
     showSlide(currentSlide);
 }
-
+ 
 function showRulesPage() {
     document.getElementById('slider-container').style.display = 'none';
     document.getElementById('menu').style.display = 'none';
