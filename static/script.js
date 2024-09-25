@@ -228,6 +228,7 @@ function listenForGameUpdates() {
         }
 
         updatePlayerPhoto('player1', currentGameId);
+        updateCurrentPlayerInfo(); // Add this line
 
         if (game.status === 'waiting') {
             disableChoiceButtons();
@@ -261,6 +262,19 @@ function updatePlayerPhoto(player, gameId) {
     
     imgElement.src = photoUrl;
     imgElement.style.display = 'inline'; // Ensure the image is visible
+}
+
+function updateCurrentPlayerInfo() {
+    const currentPlayerPhoto = document.getElementById('current-player-photo');
+    const currentPlayerName = document.getElementById('current-player-name');
+    
+    if (currentPlayer === 'player1') {
+        currentPlayerPhoto.src = document.getElementById('player1-photo').src;
+        currentPlayerName.textContent = document.getElementById('player1-name').textContent;
+    } else if (currentPlayer === 'player2') {
+        currentPlayerPhoto.src = document.getElementById('player2-photo').src;
+        currentPlayerName.textContent = document.getElementById('player2-name').textContent;
+    }
 }
 
 function checkOrientation() {
