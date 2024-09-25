@@ -208,10 +208,10 @@ function listenForGameUpdates() {
             return;
         }
         
-        document.getElementById('player1-name').textContent = `${game.player1}`;
+        document.getElementById('player1-name').textContent = game.player1;
         
         if (game.player2) {
-            document.getElementById('player2-name').textContent = `${game.player2}`;
+            document.getElementById('player2-name').textContent = game.player2;
             updatePlayerPhoto('player2', currentGameId);
         } else {
             document.getElementById('player2-name').textContent = 'Waiting for player...';
@@ -230,7 +230,6 @@ function listenForGameUpdates() {
             }
         } else if (game.status === 'finished') {
             disableChoiceButtons();
-            // Remove the game result message
             document.getElementById('result').textContent = '';
         }
     });
