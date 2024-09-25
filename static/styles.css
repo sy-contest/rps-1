@@ -73,10 +73,35 @@ ul {
     width: 100%;
     text-align: center;
     display: none;
+    background-color: #5DB55D;
+    padding: 20px;
+    color: white;
 }
 
 .slide.active {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+
+.slider-gif {
+    max-width: 80%;
+    height: auto;
+    margin: 20px 0;
+}
+
+.slide h2 {
+    margin-bottom: 10px;
+}
+
+.slide p {
+    margin-bottom: 20px;
+}
+
+.slide button {
+    margin-top: 20px;
 }
 
 .desktop-message, .rotate-message {
