@@ -50,9 +50,30 @@ function initializeEventListeners() {
 function toggleCurrentPlayerInfo() {
     const currentPlayerInfo = document.querySelector('.current-player-info');
     const arrow = currentPlayerInfo.querySelector('.up-arrow');
+    const emojiGrid = currentPlayerInfo.querySelector('.emoji-grid');
     
     currentPlayerInfo.classList.toggle('expanded');
     arrow.classList.toggle('rotated');
+    
+    if (currentPlayerInfo.classList.contains('expanded')) {
+        loadEmojis(emojiGrid);
+        emojiGrid.style.display = 'grid';
+    } else {
+        emojiGrid.style.display = 'none';
+    }
+}
+
+function loadEmojis(emojiGrid) {
+    // Clear existing emojis
+    emojiGrid.innerHTML = '';
+    
+    // Load 16 emojis from the static/images/emoji/ folder
+    for (let i = 1; i <= 16; i++) {
+        const img = document.createElement('img');
+        img.src = `/static/images/emoji/emoji${i}.png`;
+        img.alt = `Emoji ${i}`;
+        emojiGrid.appendChild(img);
+    }
 }
 
 function initYouTubePlayer() {
