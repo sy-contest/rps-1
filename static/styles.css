@@ -239,3 +239,41 @@ ul {
     background-color: #4CAF50; /* Green background for the button */
     color: white; /* White text for the button */
 }
+
+/* Add these new rules to set the background color for specific pages */
+#rules-page,
+#menu,
+#login-form,
+#game-area {
+    background-color: #9999FF;
+}
+
+/* Update the text color for better contrast on the new background */
+#rules-page,
+#menu,
+#login-form,
+#game-area {
+    color: #FFFFFF;
+}
+
+/* Update button styles for better visibility on the new background */
+#rules-page button,
+#menu button,
+#login-form button,
+#game-area button {
+    background-color: #FFFFFF;
+    color: #333333;
+}
+
+#rules-page button:hover,
+#menu button:hover,
+#login-form button:hover,
+#game-area button:hover {
+    background-color: #EEEEEE;
+}
+
+/* Update input styles for the login form */
+#login-form input {
+    background-color: #FFFFFF;
+    color: #333333;
+}
