@@ -71,6 +71,9 @@ function showSlide(n) {
     const slides = document.querySelectorAll('.slide');
     slides.forEach(slide => slide.classList.remove('active'));
     slides[n].classList.add('active');
+    
+    // Add this line to update the container background color
+    document.getElementById('mobile-content').setAttribute('data-active-slide', n);
 }
 
 function nextSlide() {

@@ -4,6 +4,12 @@
     padding: 0;
 }
 
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -13,6 +19,9 @@ body {
 
 .container {
     max-width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 100%;
     margin: 0 auto;
     padding: 10px;
 }
@@ -65,17 +74,18 @@ ul {
 }
 
 .slider-container {
-    width: 100%;
+    flex-grow: 1;
+    display: flex;
     overflow: hidden;
 }
 
 .slide {
-    width: 100%;
-    text-align: center;
+    flex: 1 0 100%;
     display: none;
-    background-color: #5DB55D;
     padding: 20px;
     color: white;
+    box-sizing: border-box;
+    background-color: #5DB55D;
 }
 
 .slide.active {
@@ -196,3 +206,13 @@ ul {
     margin-right: 10px;
     vertical-align: middle;
 }
+
+/* Different background colors for each slide */
+.slide:nth-child(1) { background-color: #5DB55D; }
+.slide:nth-child(2) { background-color: #4A90E2; }
+.slide:nth-child(3) { background-color: #F5A623; }
+
+/* Add this new rule to change the container background color based on the active slide */
+#mobile-content[data-active-slide="0"] { background-color: #5DB55D; }
+#mobile-content[data-active-slide="1"] { background-color: #4A90E2; }
+#mobile-content[data-active-slide="2"] { background-color: #F5A623; }
