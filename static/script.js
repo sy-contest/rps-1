@@ -131,7 +131,7 @@ function login() {
             currentPlayer = data.player;
             document.getElementById('login-form').style.display = 'none';
             document.getElementById('game-area').style.display = 'block';
-            document.getElementById('current-game-id').textContent = currentGameId;
+           // document.getElementById('current-game-id').textContent = currentGameId;
             listenForGameUpdates();
         } else {
             alert(data.message || 'Failed to login');
@@ -203,12 +203,22 @@ function listenForGameUpdates() {
     const gameRef = database.ref(`games/${currentGameId}`);
     gameRef.on('value', (snapshot) => {
         const game = snapshot.val();
+        if (!game) {
+            console.error('Game data not found');
+            return;
+        }
+        
         document.getElementById('player1-name').textContent = `${game.player1} (${game.player1_score || 0})`;
-        document.getElementById('player2-name').textContent = game.player2 ? `${game.player2} (${game.player2_score || 0})` : 'Waiting for player...';
+        
+        if (game.player2) {
+            document.getElementById('player2-name').textContent = `${game.player2} (${game.player2_score || 0})`;
+            updatePlayerPhoto('player2', currentGameId);
+        } else {
+            document.getElementById('player2-name').textContent = 'Waiting for player...';
+            document.getElementById('player2-photo').style.display = 'none';
+        }
 
-        // Update player photos
         updatePlayerPhoto('player1', currentGameId);
-        updatePlayerPhoto('player2', currentGameId);
 
         if (game.status === 'waiting') {
             document.getElementById('result').textContent = 'Waiting for other player to join...';
@@ -238,14 +248,21 @@ function listenForGameUpdates() {
 
 function updatePlayerPhoto(player, gameId) {
     const imgElement = document.getElementById(`${player}-photo`);
+    if (!imgElement) {
+        console.error(`Image element for ${player} not found`);
+        return;
+    }
+    
     const photoUrl = `/static/images/${gameId}/${player}.png`;
     
     imgElement.onerror = function() {
+        console.warn(`Failed to load image for ${player}, using default avatar`);
         this.onerror = null; // Prevent infinite loop
         this.src = '/static/default-avatar.png'; // Fallback to default avatar
     };
     
     imgElement.src = photoUrl;
+    imgElement.style.display = 'inline'; // Ensure the image is visible
 }
 
 function checkOrientation() {
