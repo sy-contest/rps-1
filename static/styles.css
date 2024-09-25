@@ -294,12 +294,6 @@ ul {
     box-sizing: border-box; /* Include padding and border in the width */
 }
 
-.up-arrow {
-    width: 30px; /* Adjust size as needed */
-    height: auto; /* Maintain aspect ratio */
-    margin-right: 10px; /* Space between the arrow and player name */
-}
-
 .current-player-info span {
     font-weight: bold;
     color: #333;
