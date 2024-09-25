@@ -43,6 +43,13 @@ function initializeEventListeners() {
     document.querySelectorAll('.choice').forEach(button => {
         button.addEventListener('click', () => confirmChoice(button.dataset.choice));
     });
+
+    document.querySelector('.current-player-info .up-arrow').addEventListener('click', toggleCurrentPlayerInfo);
+}
+
+function toggleCurrentPlayerInfo() {
+    const currentPlayerInfo = document.querySelector('.current-player-info');
+    currentPlayerInfo.classList.toggle('expanded');
 }
 
 function initYouTubePlayer() {
