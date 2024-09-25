@@ -53,12 +53,6 @@ function toggleCurrentPlayerInfo() {
     
     currentPlayerInfo.classList.toggle('expanded');
     arrow.classList.toggle('rotated');
-    
-    if (arrow.classList.contains('rotated')) {
-        arrow.src = '/static/down-arrow.png';
-    } else {
-        arrow.src = '/static/up-arrow.png';
-    }
 }
 
 function initYouTubePlayer() {
