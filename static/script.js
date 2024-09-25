@@ -207,8 +207,11 @@ function listenForGameUpdates() {
             console.error('Game data not found');
             return;
         }
-                
+        
+        document.getElementById('player1-name').textContent = `${game.player1} (${game.player1_score || 0})`;
+        
         if (game.player2) {
+            document.getElementById('player2-name').textContent = `${game.player2} (${game.player2_score || 0})`;
             updatePlayerPhoto('player2', currentGameId);
         } else {
             document.getElementById('player2-name').textContent = 'Waiting for player...';
@@ -218,27 +221,17 @@ function listenForGameUpdates() {
         updatePlayerPhoto('player1', currentGameId);
 
         if (game.status === 'waiting') {
-            document.getElementById('result').textContent = 'Waiting for other player to join...';
             disableChoiceButtons();
         } else if (game.status === 'playing') {
             if (game[`${currentPlayer}_choice`]) {
-                document.getElementById('result').textContent = `You chose ${game[`${currentPlayer}_choice`]}. Waiting for other player...`;
                 disableChoiceButtons();
             } else {
-                document.getElementById('result').textContent = 'Make your choice!';
                 enableChoiceButtons();
             }
         } else if (game.status === 'finished') {
-            let result = '';
-            if (game.winner === 'player1') {
-                result = currentPlayer === 'player1' ? 'You win the game!' : 'You lose the game!';
-            } else if (game.winner === 'player2') {
-                result = currentPlayer === 'player2' ? 'You win the game!' : 'You lose the game!';
-            } else {
-                result = 'The game ended in a tie!';
-            }
-            document.getElementById('result').textContent = result;
             disableChoiceButtons();
+            // Remove the game result message
+            document.getElementById('result').textContent = '';
         }
     });
 }
