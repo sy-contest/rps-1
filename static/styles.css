@@ -302,7 +302,7 @@ ul {
     text-align: center; /* Center the text */
 }
 
-.current-player-info img {
+.current-player-info #current-player-photo {
     width: 50px; /* Profile picture size */
     height: 50px;
     border-radius: 50%;
@@ -310,7 +310,7 @@ ul {
     margin-right: 10px; /* Space between the player name and profile picture */
 }
 
-.up-arrow {
+.current-player-info .up-arrow {
     width: 20px; /* Smaller size for the up arrow */
     height: 20px; /* Maintain aspect ratio */
     margin-left: 10px; /* Space between the player name and up arrow */
