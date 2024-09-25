@@ -314,4 +314,5 @@ ul {
     width: 30px; /* Smaller size for the up arrow */
     height: 30px; /* Maintain aspect ratio */
     margin-left: 10px; /* Space between the player name and up arrow */
+    margin-right: 10px;
 }
