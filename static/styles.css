@@ -287,11 +287,26 @@ ul {
     align-items: center;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 10px;
-    border-radius: 50px; /* Extremely rounded corners */
+    border-radius: 50px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    border: 2px solid black; /* Black border */
-    width: 80%; /* Set width to 80% of the screen */
-    box-sizing: border-box; /* Include padding and border in the width */
+    border: 2px solid black;
+    width: 80%;
+    box-sizing: border-box;
+}
+
+.current-player-info .up-arrow {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px; /* Add margin to the right */
+    order: -1; /* Move to the start of the flex container */
+}
+
+.current-player-info #current-player-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
 }
 
 .current-player-info span {
@@ -300,18 +315,4 @@ ul {
     font-size: 18px;
     flex-grow: 1; /* Allow the text to take up remaining space */
     text-align: center; /* Center the text */
-}
-
-.current-player-info #current-player-photo {
-    width: 50px; /* Profile picture size */
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 10px; /* Space between the player name and profile picture */
-}
-
-.current-player-info .up-arrow {
-    width: 30px; /* Smaller size for the up arrow */
-    height: 30px; /* Maintain aspect ratio */
-    margin-left: 10px; /* Space between the player name and up arrow */
 }
