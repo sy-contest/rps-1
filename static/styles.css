@@ -203,15 +203,6 @@ ul {
     max-width: 250px;
 }
 
-.players-grid img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 10px;
-    vertical-align: middle;
-}
-
 /* Different background colors for each slide */
 .slide:nth-child(1) { background-color: #5DB55D; }
 .slide:nth-child(2) { background-color: #BBD9D7; }

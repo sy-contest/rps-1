@@ -217,18 +217,7 @@ function listenForGameUpdates() {
             return;
         }
         
-        document.getElementById('player1-name').textContent = game.player1;
-        
-        if (game.player2) {
-            document.getElementById('player2-name').textContent = game.player2;
-            updatePlayerPhoto('player2', currentGameId);
-        } else {
-            document.getElementById('player2-name').textContent = 'Waiting for player...';
-            document.getElementById('player2-photo').style.display = 'none';
-        }
-
-        updatePlayerPhoto('player1', currentGameId);
-        updateCurrentPlayerInfo(); // Add this line
+        updateCurrentPlayerInfo();
 
         if (game.status === 'waiting') {
             disableChoiceButtons();
@@ -245,36 +234,24 @@ function listenForGameUpdates() {
     });
 }
 
-function updatePlayerPhoto(player, gameId) {
-    const imgElement = document.getElementById(`${player}-photo`);
-    if (!imgElement) {
-        console.error(`Image element for ${player} not found`);
-        return;
-    }
-    
-    const photoUrl = `/static/images/${gameId}/${player}.png`;
-    
-    imgElement.onerror = function() {
-        console.warn(`Failed to load image for ${player}, using default avatar`);
-        this.onerror = null; // Prevent infinite loop
-        this.src = '/static/default-avatar.png'; // Fallback to default avatar
-    };
-    
-    imgElement.src = photoUrl;
-    imgElement.style.display = 'inline'; // Ensure the image is visible
-}
-
 function updateCurrentPlayerInfo() {
     const currentPlayerPhoto = document.getElementById('current-player-photo');
     const currentPlayerName = document.getElementById('current-player-name');
     
     if (currentPlayer === 'player1') {
-        currentPlayerPhoto.src = document.getElementById('player1-photo').src;
-        currentPlayerName.textContent = document.getElementById('player1-name').textContent;
+        currentPlayerPhoto.src = `/static/images/${currentGameId}/player1.png`;
+        currentPlayerName.textContent = game.player1;
     } else if (currentPlayer === 'player2') {
-        currentPlayerPhoto.src = document.getElementById('player2-photo').src;
-        currentPlayerName.textContent = document.getElementById('player2-name').textContent;
+        currentPlayerPhoto.src = `/static/images/${currentGameId}/player2.png`;
+        currentPlayerName.textContent = game.player2;
     }
+
+    // Add error handling for the image
+    currentPlayerPhoto.onerror = function() {
+        console.warn(`Failed to load image for ${currentPlayer}, using default avatar`);
+        this.onerror = null; // Prevent infinite loop
+        this.src = '/static/default-avatar.png'; // Fallback to default avatar
+    };
 }
 
 function checkOrientation() {
