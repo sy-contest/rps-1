@@ -217,7 +217,7 @@ function listenForGameUpdates() {
             return;
         }
         
-        updateCurrentPlayerInfo();
+        updateCurrentPlayerInfo(game);  // Pass the game data here
 
         if (game.status === 'waiting') {
             disableChoiceButtons();
@@ -234,16 +234,16 @@ function listenForGameUpdates() {
     });
 }
 
-function updateCurrentPlayerInfo() {
+function updateCurrentPlayerInfo(gameData) {
     const currentPlayerPhoto = document.getElementById('current-player-photo');
     const currentPlayerName = document.getElementById('current-player-name');
     
     if (currentPlayer === 'player1') {
         currentPlayerPhoto.src = `/static/images/${currentGameId}/player1.png`;
-        currentPlayerName.textContent = game.player1;
+        currentPlayerName.textContent = gameData.player1;
     } else if (currentPlayer === 'player2') {
         currentPlayerPhoto.src = `/static/images/${currentGameId}/player2.png`;
-        currentPlayerName.textContent = game.player2;
+        currentPlayerName.textContent = gameData.player2;
     }
 
     // Add error handling for the image
