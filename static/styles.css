@@ -286,10 +286,12 @@ ul {
     display: flex;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.8);
-    padding: 10px 20px;
+    padding: 10px;
     border-radius: 50px; /* Extremely rounded corners */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     border: 2px solid black; /* Black border */
+    width: 80%; /* Set width to 80% of the screen */
+    box-sizing: border-box; /* Include padding and border in the width */
 }
 
 .current-player-info img {
@@ -304,4 +306,6 @@ ul {
     font-weight: bold;
     color: #333;
     font-size: 18px;
+    flex-grow: 1; /* Allow the text to take up remaining space */
+    text-align: center; /* Center the text */
 }
