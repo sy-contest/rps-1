@@ -292,7 +292,7 @@ function updateCurrentPlayerInfo(gameData) {
 
     opponentPhoto.onerror = function() {
         console.warn(`Failed to load image for opponent, using default avatar`);
-        this.onerror = null; // Prevent infinite loop
+        this.onerror = null; // Prevent infinite  loop
         this.src = '/static/default-avatar.png'; // Fallback to default avatar
     };
 }
