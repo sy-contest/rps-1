@@ -74,7 +74,7 @@ function loadEmojis(emojiGrid) {
         img.alt = `Emoji ${i}`;
         emojiGrid.appendChild(img);
     }
-}
+} 
 
 function initYouTubePlayer() {
     // Load the YouTube IFrame Player API code asynchronously
