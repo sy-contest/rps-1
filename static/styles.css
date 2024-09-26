@@ -303,15 +303,15 @@ ul {
 
 .emoji-grid {
     display: grid;
-    grid-template-columns: 50px 1fr 1fr 50px;
+    grid-template-columns: 30px 1fr 1fr 50px;
     gap: 10px;
     margin-bottom: 20px;
     width: 100%;
 }
 
 .emoji-grid img {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     object-fit: contain;
 }
 
@@ -338,8 +338,8 @@ ul {
 }
 
 .player-info-row .up-arrow {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
     transition: transform 0.3s ease;
 }
