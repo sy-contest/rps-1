@@ -364,6 +364,8 @@ ul {
 }
 
 .game-upper-part, .game-lower-part {
+    box-sizing: border-box;
+    height: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: center; /* Center content vertically */
