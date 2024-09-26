@@ -268,18 +268,30 @@ function listenForGameUpdates() {
 function updateCurrentPlayerInfo(gameData) {
     const currentPlayerPhoto = document.getElementById('current-player-photo');
     const currentPlayerName = document.getElementById('current-player-name');
-    
+    const opponentPhoto = document.getElementById('opponent-photo');
+    const opponentName = document.getElementById('opponent-name');
+
     if (currentPlayer === 'player1') {
         currentPlayerPhoto.src = `/static/images/${currentGameId}/player1.png`;
         currentPlayerName.textContent = gameData.player1;
+        opponentPhoto.src = `/static/images/${currentGameId}/player2.png`;
+        opponentName.textContent = gameData.player2;
     } else if (currentPlayer === 'player2') {
         currentPlayerPhoto.src = `/static/images/${currentGameId}/player2.png`;
         currentPlayerName.textContent = gameData.player2;
+        opponentPhoto.src = `/static/images/${currentGameId}/player1.png`;
+        opponentName.textContent = gameData.player1;
     }
 
-    // Add error handling for the image
+    // Add error handling for the images
     currentPlayerPhoto.onerror = function() {
         console.warn(`Failed to load image for ${currentPlayer}, using default avatar`);
+        this.onerror = null; // Prevent infinite loop
+        this.src = '/static/default-avatar.png'; // Fallback to default avatar
+    };
+
+    opponentPhoto.onerror = function() {
+        console.warn(`Failed to load image for opponent, using default avatar`);
         this.onerror = null; // Prevent infinite loop
         this.src = '/static/default-avatar.png'; // Fallback to default avatar
     };

@@ -419,3 +419,24 @@ ul {
 }
 
 /* ... (keep the rest of your existing styles) */
+
+.opponent-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.opponent-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.opponent-info span {
+    font-weight: bold;
+    color: #333;
+    font-size: 18px;
+    margin-top: 10px;
+}
