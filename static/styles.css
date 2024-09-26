@@ -9,9 +9,6 @@ body, html {
     padding: 0;
     height: 100%;
     overflow: hidden;
-}
-
-body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     background-color: #f4f4f4;
@@ -29,23 +26,14 @@ body {
     padding: 10px;
 }
 
-h1 {
-    font-size: 24px;
+h1, h2, h3 {
     text-align: center;
     margin-bottom: 15px;
 }
 
-h2 {
-    font-size: 20px;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-h3 {
-    font-size: 18px;
-    text-align: center;
-    margin-bottom: 10px;
-}
+h1 { font-size: 24px; }
+h2 { font-size: 20px; }
+h3 { font-size: 18px; }
 
 .form-grid, .game-grid, .players-grid, .choices-grid, .result-grid, .menu-grid, .rules-grid {
     display: grid;
@@ -105,11 +93,11 @@ ul {
     margin: 20px 0;
 }
 
-.slide h2 {
+.slide h2, .slide p, .slide button {
     margin-bottom: 10px;
 }
 
-.slide p {
+.slide p, .slide button {
     margin-bottom: 20px;
 }
 
@@ -132,28 +120,20 @@ ul {
 }
 
 @media (min-width: 768px) {
-    .desktop-message {
+    .desktop-message, #mobile-content {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-    }
-
-    #mobile-content {
-        display: none;
     }
 }
 
 @media (max-width: 767px) and (orientation: landscape) {
-    .rotate-message {
+    .rotate-message, #mobile-content {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-    }
-
-    #mobile-content {
-        display: none;
     }
 }
 
@@ -168,36 +148,21 @@ ul {
     height: 200px;
 }
 
-.menu-grid {
+.menu-grid, .form-grid {
     display: grid;
     gap: 20px;
     justify-items: center;
     padding: 20px;
 }
 
-.menu-logo {
+.menu-logo, .form-grid .menu-logo {
     width: 80%;
     max-width: 300px;
     height: auto;
     margin-bottom: 20px;
 }
 
-.form-grid {
-    display: grid;
-    gap: 20px;
-    justify-items: center;
-    padding: 20px;
-}
-
-.form-grid .menu-logo {
-    width: 80%;
-    max-width: 300px;
-    height: auto;
-    margin-bottom: 20px;
-}
-
-.form-grid input,
-.form-grid button {
+.form-grid input, .form-grid button {
     width: 80%;
     max-width: 250px;
 }
@@ -232,35 +197,19 @@ ul {
 #mobile-content.login-page,
 #mobile-content.game-page {
     background-color: #9999FF;
-}
-
-#mobile-content.rules-page,
-#mobile-content.menu-page,
-#mobile-content.login-page,
-#mobile-content.game-page {
     color: #FFFFFF;
 }
 
-#rules-page,
-#menu,
-#login-form,
-#game-area {
+#rules-page, #menu, #login-form, #game-area {
     background-color: transparent;
 }
 
-#rules-page button,
-#menu button,
-#login-form button,
-#game-area button,
-#login-form input {
+#rules-page button, #menu button, #login-form button, #game-area button, #login-form input {
     background-color: #FFFFFF;
     color: #333333;
 }
 
-#rules-page button:hover,
-#menu button:hover,
-#login-form button:hover,
-#game-area button:hover {
+#rules-page button:hover, #menu button:hover, #login-form button:hover, #game-area button:hover {
     background-color: #EEEEEE;
 }
 
@@ -301,8 +250,7 @@ ul {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 20px 0;
     width: 100%;
     justify-items: center;
 }
