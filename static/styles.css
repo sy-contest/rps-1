@@ -361,14 +361,13 @@ ul {
     height: 100vh;
     padding: 0; /* Remove padding to ensure full width */
     box-sizing: border-box;
-    justify-content: space-between; /* Distribute space evenly */
 }
 
-.game-upper-part {
-    flex: 1;
+.game-upper-part, .game-lower-part {
+    flex: 1; /* Ensure both parts take up equal space */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center; /* Center content vertically */
     align-items: center;
 }
 
@@ -377,15 +376,6 @@ ul {
     height: 2px;
     background-color: #333;
     margin: 0; /* Remove margin to ensure no white space */
-}
-
-.game-lower-part {
-    flex: 1; /* Ensure the lower part takes up equal space */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Align content to the top */
-    align-items: center;
-    margin-bottom: 20px; /* Adjust this value to leave space for the current-player-info */
 }
 
 .choices-grid {
