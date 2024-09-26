@@ -293,21 +293,23 @@ ul {
     border: 2px solid black;
     width: 80%;
     box-sizing: border-box;
-    transition: padding-top 0.3s ease, border-radius 0.3s ease;
+    transition: border-radius 0.3s ease, max-height 0.3s ease;
+    max-height: 70px; /* Adjust this value based on your player info row height */
+    overflow: hidden;
 }
 
 .current-player-info.expanded {
-    padding-top: 200px;
     border-radius: 30px;
+    max-height: 500px; /* Adjust this value to accommodate all emojis */
 }
 
 .emoji-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     margin-bottom: 20px;
     width: 100%;
-    justify-items: center; /* Added to center the emojis in each row */
+    justify-items: center;
 }
 
 .emoji-grid img {
