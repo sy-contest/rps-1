@@ -356,15 +356,14 @@ ul {
 }
 
 .game-grid {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 1fr auto 1fr; /* Divide the grid into three rows */
     height: 100vh;
     padding: 0; /* Remove padding to ensure full width */
     box-sizing: border-box;
 }
 
 .game-upper-part, .game-lower-part {
-    flex: 1; /* Ensure both parts take up equal space */
     display: flex;
     flex-direction: column;
     justify-content: center; /* Center content vertically */
