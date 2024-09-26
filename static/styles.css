@@ -359,7 +359,7 @@ ul {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    padding: 20px;
+    padding: 0; /* Remove padding to ensure full width */
     box-sizing: border-box;
     justify-content: space-between; /* Distribute space evenly */
 }
@@ -373,18 +373,19 @@ ul {
 }
 
 .game-divider {
-    width: 100%;
+    width: 100%; /* Ensure the divider spans the full width */
     height: 2px;
     background-color: #333;
-    margin: 10px 0;
+    margin: 0; /* Remove margin to ensure no white space */
 }
 
 .game-lower-part {
+    flex: 1; /* Ensure the lower part takes up equal space */
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start; /* Align content to the top */
     align-items: center;
-    margin-bottom: 100px; /* Adjust this value to leave space for the current-player-info */
+    margin-bottom: 20px; /* Adjust this value to leave space for the current-player-info */
 }
 
 .choices-grid {
