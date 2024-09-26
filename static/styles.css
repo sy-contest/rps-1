@@ -367,7 +367,6 @@ ul {
     box-sizing: border-box;
     height: 40vh;
     display: flex;
-    flex-direction: column;
     justify-content: center; /* Center content vertically */
     align-items: center;
 }
