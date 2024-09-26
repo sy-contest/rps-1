@@ -60,12 +60,17 @@
             <button id="login-button">Login</button>
         </div>
         <div id="game-area" class="game-grid" style="display: none;">
-            <div id="choices" class="choices-grid">
-                <button class="choice" data-choice="rock">Rock</button>
-                <button class="choice" data-choice="paper">Paper</button>
-                <button class="choice" data-choice="scissors">Scissors</button>
+            <div class="game-upper-part">
+                <div id="result" class="result-grid"></div>
             </div>
-            <div id="result" class="result-grid"></div>
+            <div class="game-divider"></div>
+            <div class="game-lower-part">
+                <div id="choices" class="choices-grid">
+                    <button class="choice" data-choice="rock">Rock</button>
+                    <button class="choice" data-choice="paper">Paper</button>
+                    <button class="choice" data-choice="scissors">Scissors</button>
+                </div>
+            </div>
             <div id="current-player" class="current-player-info">
                 <div class="player-info-row">
                     <img id="current-player-photo" src="" alt="Current Player">
