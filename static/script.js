@@ -4,7 +4,6 @@ let currentPlayer = null;
 let currentSlide = 0;
 let youtubePlayer;
 
-// Fetch Firebase config from server
 fetch('/config')
     .then(response => {
         if (!response.ok) {
@@ -25,14 +24,10 @@ fetch('/config')
     });
 
 function initializeEventListeners() {
-    document.querySelectorAll('.next-slide').forEach(button => {
-        button.addEventListener('click', nextSlide);
-    });
+    document.querySelectorAll('.next-slide').forEach(button => button.addEventListener('click', nextSlide));
     document.getElementById('start-button').addEventListener('click', showRulesPage);
     document.getElementById('next-button').addEventListener('click', () => {
-        if (youtubePlayer && youtubePlayer.getPlayerState() === YT.PlayerState.PLAYING) {
-            youtubePlayer.pauseVideo();
-        }
+        youtubePlayer?.pauseVideo();
         showMenu();
     });
     document.getElementById('watch-stream-button').addEventListener('click', watchStream);
@@ -40,10 +35,7 @@ function initializeEventListeners() {
     document.getElementById('rules-button').addEventListener('click', showRulesPage);
     document.getElementById('login-button').addEventListener('click', login);
 
-    document.querySelectorAll('.choice').forEach(button => {
-        button.addEventListener('click', () => confirmChoice(button.dataset.choice));
-    });
-
+    document.querySelectorAll('.choice').forEach(button => button.addEventListener('click', () => confirmChoice(button.dataset.choice)));
     document.querySelector('.current-player-info .up-arrow').addEventListener('click', toggleCurrentPlayerInfo);
 }
 
@@ -55,19 +47,12 @@ function toggleCurrentPlayerInfo() {
     currentPlayerInfo.classList.toggle('expanded');
     arrow.classList.toggle('rotated');
     
-    if (currentPlayerInfo.classList.contains('expanded')) {
-        loadEmojis(emojiGrid);
-        emojiGrid.style.display = 'grid';
-    } else {
-        emojiGrid.style.display = 'none';
-    }
+    emojiGrid.style.display = currentPlayerInfo.classList.contains('expanded') ? 'grid' : 'none';
+    if (currentPlayerInfo.classList.contains('expanded')) loadEmojis(emojiGrid);
 }
 
 function loadEmojis(emojiGrid) {
-    // Clear existing emojis
     emojiGrid.innerHTML = '';
-    
-    // Load 16 emojis from the static/images/emoji/ folder
     for (let i = 1; i <= 16; i++) {
         const img = document.createElement('img');
         img.src = `/static/images/emoji/emoji${i}.png`;
@@ -77,14 +62,11 @@ function loadEmojis(emojiGrid) {
 } 
 
 function initYouTubePlayer() {
-    // Load the YouTube IFrame Player API code asynchronously
-    var tag = document.createElement('script');
+    const tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    document.getElementsByTagName('script')[0].parentNode.insertBefore(tag, document.getElementsByTagName('script')[0]);
 }
 
-// This function will be called when the YouTube IFrame Player API is ready
 function onYouTubeIframeAPIReady() {
     youtubePlayer = new YT.Player('youtube-player', {
         events: {
@@ -94,7 +76,6 @@ function onYouTubeIframeAPIReady() {
 }
 
 function onPlayerReady(event) {
-    // The player is ready
     console.log('YouTube player is ready');
 }
 
@@ -102,16 +83,11 @@ function showSlide(n) {
     const slides = document.querySelectorAll('.slide');
     slides.forEach(slide => slide.classList.remove('active'));
     slides[n].classList.add('active');
-    
-    // Add this line to update the container background color
     document.getElementById('mobile-content').setAttribute('data-active-slide', n);
 }
 
 function nextSlide() {
-    currentSlide++;
-    if (currentSlide >= document.querySelectorAll('.slide').length) {
-        currentSlide = 0;
-    }
+    currentSlide = (currentSlide + 1) % document.querySelectorAll('.slide').length;
     showSlide(currentSlide);
 }
  
@@ -171,7 +147,6 @@ function login() {
             currentPlayer = data.player;
             document.getElementById('login-form').style.display = 'none';
             document.getElementById('game-area').style.display = 'block';
-           // document.getElementById('current-game-id').textContent = currentGameId;
             listenForGameUpdates();
         } else {
             alert(data.message || 'Failed to login');
@@ -224,15 +199,11 @@ function makeChoice(choice) {
 }
 
 function disableChoiceButtons() {
-    document.querySelectorAll('.choice').forEach(button => {
-        button.disabled = true;
-    });
+    document.querySelectorAll('.choice').forEach(button => button.disabled = true);
 }
 
 function enableChoiceButtons() {
-    document.querySelectorAll('.choice').forEach(button => {
-        button.disabled = false;
-    });
+    document.querySelectorAll('.choice').forEach(button => button.disabled = false);
 }
 
 function listenForGameUpdates() {
@@ -248,7 +219,7 @@ function listenForGameUpdates() {
             return;
         }
         
-        updateCurrentPlayerInfo(game);  // Pass the game data here
+        updateCurrentPlayerInfo(game);
 
         if (game.status === 'waiting') {
             disableChoiceButtons();
@@ -283,17 +254,16 @@ function updateCurrentPlayerInfo(gameData) {
         opponentName.textContent = gameData.player1;
     }
 
-    // Add error handling for the images
     currentPlayerPhoto.onerror = function() {
         console.warn(`Failed to load image for ${currentPlayer}, using default avatar`);
-        this.onerror = null; // Prevent infinite loop
-        this.src = '/static/default-avatar.png'; // Fallback to default avatar
+        this.onerror = null;
+        this.src = '/static/default-avatar.png';
     };
 
     opponentPhoto.onerror = function() {
         console.warn(`Failed to load image for opponent, using default avatar`);
-        this.onerror = null; // Prevent infinite  loop
-        this.src = '/static/default-avatar.png'; // Fallback to default avatar
+        this.onerror = null;
+        this.src = '/static/default-avatar.png';
     };
 }
 
@@ -303,17 +273,14 @@ function checkOrientation() {
     const mobileContent = document.getElementById('mobile-content');
 
     if (window.innerWidth >= 768) {
-        // Desktop view
         if (desktopMessage) desktopMessage.style.display = 'flex';
         if (rotateMessage) rotateMessage.style.display = 'none';
         if (mobileContent) mobileContent.style.display = 'none';
     } else if (window.innerHeight < window.innerWidth) {
-        // Mobile landscape view
         if (desktopMessage) desktopMessage.style.display = 'none';
         if (rotateMessage) rotateMessage.style.display = 'flex';
         if (mobileContent) mobileContent.style.display = 'none';
     } else {
-        // Mobile portrait view
         if (desktopMessage) desktopMessage.style.display = 'none';
         if (rotateMessage) rotateMessage.style.display = 'none';
         if (mobileContent) mobileContent.style.display = 'block';
