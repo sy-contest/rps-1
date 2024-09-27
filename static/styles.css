@@ -330,3 +330,9 @@ ul {
     font-size: 16px;
     margin-top: 20px;
 }
+
+.choice-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
