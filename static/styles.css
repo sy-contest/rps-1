@@ -366,3 +366,21 @@ ul {
     height: 30px;
     cursor: pointer;
 }
+
+.score {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    background-color: rgba(139, 137, 230, 0.8);
+    padding: 10px 20px;
+    border-radius: 15px;
+    margin: 10px 0;
+}
+
+.game-upper-part {
+    flex-direction: column;
+}
+
+.game-lower-part {
+    flex-direction: column;
+}

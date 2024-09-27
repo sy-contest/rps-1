@@ -273,6 +273,8 @@ function enableChoiceButtons() {
     document.querySelectorAll('.choice').forEach(button => button.disabled = false);
 }
 
+let previousGame = null;
+
 function listenForGameUpdates() {
     if (!database) {
         console.error('Firebase database not initialized');
@@ -302,19 +304,24 @@ function listenForGameUpdates() {
                 const isPlayer1 = currentPlayer === 'player1';
                 const currentScore = isPlayer1 ? game.player1_score : game.player2_score;
                 const opponentScore = isPlayer1 ? game.player2_score : game.player1_score;
-                const previousCurrentScore = this.previousGame ? 
-                    (isPlayer1 ? this.previousGame.player1_score : this.previousGame.player2_score) : 0;
-                const previousOpponentScore = this.previousGame ? 
-                    (isPlayer1 ? this.previousGame.player2_score : this.previousGame.player1_score) : 0;
                 
-                if (currentScore > previousCurrentScore) {
-                    playEarnPointSound();
-                } else if (opponentScore > previousOpponentScore) {
-                    playLosePointSound();
+                // Update score displays
+                document.getElementById('current-player-score').textContent = `Score: ${currentScore}`;
+                document.getElementById('opponent-score').textContent = `Score: ${opponentScore}`;
+                
+                if (previousGame) {
+                    const previousCurrentScore = isPlayer1 ? previousGame.player1_score : previousGame.player2_score;
+                    const previousOpponentScore = isPlayer1 ? previousGame.player2_score : previousGame.player1_score;
+                    
+                    if (currentScore > previousCurrentScore) {
+                        playEarnPointSound();
+                    } else if (opponentScore > previousOpponentScore) {
+                        playLosePointSound();
+                    }
                 }
             }
             
-            this.previousGame = {...game};
+            previousGame = {...game};
         } else if (game.status === 'finished') {
             disableChoiceButtons();
             document.getElementById('result').textContent = '';
