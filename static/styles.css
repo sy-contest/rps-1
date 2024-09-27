@@ -84,7 +84,7 @@ ul {
 }
 
 .slider-gif {
-    max-width: 80%;
+    max-width: 100%;
     height: auto;
     margin: 20px 0;
 }
@@ -190,10 +190,7 @@ ul {
     color: white;
 }
 
-.slide:nth-child(3) button {
-    background-color: #4CAF50;
-    color: white;
-}
+
 
 .slide:nth-child(1) button {
     background-color: #4DA14D;
@@ -206,6 +203,15 @@ ul {
 
 .slide:nth-child(2) button {
     background-color: #6FAFAA;
+    color: white;
+    font-size: 21px;
+    font-weight: 600;
+    width: 50%;
+    margin-bottom: 20px; /* Adjust this value to move the button up */
+}
+
+.slide:nth-child(3) button {
+    background-color: black;
     color: white;
     font-size: 21px;
     font-weight: 600;
