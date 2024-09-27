@@ -238,7 +238,7 @@ function makeChoice(choice) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ choice: choice }),
+        body: JSON.stringify({ choice: choice }), 
     })
     .then(response => {
         if (!response.ok) {
