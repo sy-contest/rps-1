@@ -5,6 +5,8 @@ let currentSlide = 0;
 let youtubePlayer;
 let backgroundMusic;
 let isMusicPlaying = false;
+let earnPointSound;
+let losePointSound;
 
 fetch('/config')
     .then(response => {
@@ -40,6 +42,8 @@ function initializeEventListeners() {
     document.querySelectorAll('.choice').forEach(button => button.addEventListener('click', () => confirmChoice(button.dataset.choice)));
 
     backgroundMusic = document.getElementById('background-music');
+    earnPointSound = document.getElementById('earn-point-sound');
+    losePointSound = document.getElementById('lose-point-sound');
     document.getElementById('play-music-btn').addEventListener('click', toggleMusic);
     document.getElementById('mute-music-btn').addEventListener('click', toggleMusic);
     console.log('Background music initialized:', backgroundMusic);
@@ -264,6 +268,22 @@ function listenForGameUpdates() {
             } else {
                 enableChoiceButtons();
             }
+            
+            // Check for score changes and play sounds
+            if (game.player1_score !== undefined && game.player2_score !== undefined) {
+                const currentScore = currentPlayer === 'player1' ? game.player1_score : game.player2_score;
+                const previousScore = currentPlayer === 'player1' ? 
+                    (this.previousGame?.player1_score ?? 0) : 
+                    (this.previousGame?.player2_score ?? 0);
+                
+                if (currentScore > previousScore) {
+                    playEarnPointSound();
+                } else if (currentScore < previousScore) {
+                    playLosePointSound();
+                }
+            }
+            
+            this.previousGame = {...game};
         } else if (game.status === 'finished') {
             disableChoiceButtons();
             document.getElementById('result').textContent = '';
@@ -330,4 +350,12 @@ function showGameArea() {
     document.getElementById('mobile-content').className = 'container game-page';
     document.getElementById('menu').style.display = 'none';
     document.getElementById('game-area').style.display = 'grid';
+}
+
+function playEarnPointSound() {
+    earnPointSound.play().catch(error => console.error('Error playing earn point sound:', error));
+}
+
+function playLosePointSound() {
+    losePointSound.play().catch(error => console.error('Error playing lose point sound:', error));
 }
