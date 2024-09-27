@@ -3,6 +3,7 @@ let currentGameId = null;
 let currentPlayer = null;
 let currentSlide = 0;
 let youtubePlayer;
+let backgroundMusic;
 
 fetch('/config')
     .then(response => {
@@ -36,6 +37,8 @@ function initializeEventListeners() {
     document.getElementById('login-button').addEventListener('click', login);
 
     document.querySelectorAll('.choice').forEach(button => button.addEventListener('click', () => confirmChoice(button.dataset.choice)));
+
+    backgroundMusic = document.getElementById('background-music');
 }
 
 function initYouTubePlayer() {
@@ -82,6 +85,7 @@ function showMenu() {
     document.getElementById('login-form').style.display = 'none';
     document.getElementById('game-area').style.display = 'none';
     document.getElementById('menu').style.display = 'grid';
+    stopBackgroundMusic();
 }
 
 function watchStream() {
@@ -266,3 +270,18 @@ function checkOrientation() {
 
 window.addEventListener('load', checkOrientation);
 window.addEventListener('resize', checkOrientation);
+
+function playBackgroundMusic() {
+    if (backgroundMusic) {
+        backgroundMusic.play().catch(error => {
+            console.error('Error playing background music:', error);
+        });
+    }
+}
+
+function stopBackgroundMusic() {
+    if (backgroundMusic) {
+        backgroundMusic.pause();
+        backgroundMusic.currentTime = 0;
+    }
+}
