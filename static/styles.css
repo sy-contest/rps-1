@@ -199,6 +199,15 @@ ul {
     margin-bottom: 20px; /* Adjust this value to move the button up */
 }
 
+.slide:nth-child(2) button {
+    background-color: #6FAFAA;
+    color: white;
+    font-size: 21px;
+    font-weight: 600;
+    width: 50%;
+    margin-bottom: 20px; /* Adjust this value to move the button up */
+}
+
 #mobile-content.rules-page,
 #mobile-content.menu-page,
 #mobile-content.login-page,
