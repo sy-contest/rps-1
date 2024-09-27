@@ -162,7 +162,7 @@ ul {
     width: 80%;
     max-width: 250px;
 }
-
+ 
 .slide:nth-child(1) { background-color: #5DB55D; }
 .slide:nth-child(2) { background-color: #BBD9D7; }
 .slide:nth-child(3) { background-color: #FFFFFF; }
