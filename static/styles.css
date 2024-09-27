@@ -336,3 +336,12 @@ ul {
     height: 24px;
     margin-right: 10px;
 }
+
+.choice[data-choice="rock"] .choice-icon,
+.choice[data-choice="paper"] .choice-icon {
+    margin-right: 20px; /* Increased margin for rock and paper */
+}
+
+.choice[data-choice="scissors"] .choice-icon {
+    margin-right: 10px; /* Keep the original margin for scissors */
+}
