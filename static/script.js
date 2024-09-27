@@ -49,6 +49,11 @@ function initializeEventListeners() {
     document.getElementById('mute-music-btn').addEventListener('click', toggleMusic);
     document.getElementById('enable-sound-btn').addEventListener('click', toggleSound);
     document.getElementById('disable-sound-btn').addEventListener('click', toggleSound);
+    
+    // Initialize control buttons
+    updateMusicControls();
+    updateSoundControls();
+    
     console.log('Background music initialized:', backgroundMusic);
 }
 
@@ -73,11 +78,11 @@ function updateMusicControls() {
     const muteBtn = document.getElementById('mute-music-btn');
     
     if (isMusicPlaying) {
-        playBtn.style.display = 'none';
-        muteBtn.style.display = 'block';
-    } else {
         playBtn.style.display = 'block';
         muteBtn.style.display = 'none';
+    } else {
+        playBtn.style.display = 'none';
+        muteBtn.style.display = 'block';
     }
 }
 
@@ -86,11 +91,11 @@ function updateSoundControls() {
     const disableBtn = document.getElementById('disable-sound-btn');
     
     if (isSoundEnabled) {
-        enableBtn.style.display = 'none';
-        disableBtn.style.display = 'block';
-    } else {
         enableBtn.style.display = 'block';
         disableBtn.style.display = 'none';
+    } else {
+        enableBtn.style.display = 'none';
+        disableBtn.style.display = 'block';
     }
 }
 
