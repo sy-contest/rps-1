@@ -36,30 +36,7 @@ function initializeEventListeners() {
     document.getElementById('login-button').addEventListener('click', login);
 
     document.querySelectorAll('.choice').forEach(button => button.addEventListener('click', () => confirmChoice(button.dataset.choice)));
-    document.querySelector('.current-player-info .up-arrow').addEventListener('click', toggleCurrentPlayerInfo);
 }
-
-function toggleCurrentPlayerInfo() {
-    const currentPlayerInfo = document.querySelector('.current-player-info');
-    const arrow = currentPlayerInfo.querySelector('.up-arrow');
-    const emojiGrid = currentPlayerInfo.querySelector('.emoji-grid');
-    
-    currentPlayerInfo.classList.toggle('expanded');
-    arrow.classList.toggle('rotated');
-    
-    emojiGrid.style.display = currentPlayerInfo.classList.contains('expanded') ? 'grid' : 'none';
-    if (currentPlayerInfo.classList.contains('expanded')) loadEmojis(emojiGrid);
-}
-
-function loadEmojis(emojiGrid) {
-    emojiGrid.innerHTML = '';
-    for (let i = 1; i <= 16; i++) {
-        const img = document.createElement('img');
-        img.src = `/static/images/emoji/emoji${i}.png`;
-        img.alt = `Emoji ${i}`;
-        emojiGrid.appendChild(img);
-    }
-} 
 
 function initYouTubePlayer() {
     const tag = document.createElement('script');

@@ -279,17 +279,6 @@ ul {
     text-align: center;
 }
 
-.player-info-row .up-arrow {
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.player-info-row .up-arrow.rotated {
-    transform: rotate(180deg);
-}
-
 .game-grid {
     display: grid;
     grid-template-rows: 1fr auto 1fr;
