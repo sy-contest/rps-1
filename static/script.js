@@ -306,8 +306,8 @@ function listenForGameUpdates() {
                 const opponentScore = isPlayer1 ? game.player2_score : game.player1_score;
                 
                 // Update score displays
-                document.getElementById('current-player-score').textContent = `Score: ${currentScore}`;
-                document.getElementById('opponent-score').textContent = `Score: ${opponentScore}`;
+                document.getElementById('current-player-score').textContent = currentScore;
+                document.getElementById('opponent-score').textContent = opponentScore;
                 
                 if (previousGame) {
                     const previousCurrentScore = isPlayer1 ? previousGame.player1_score : previousGame.player2_score;
@@ -400,4 +400,4 @@ function playLosePointSound() {
     if (isSoundEnabled) {
         losePointSound.play().catch(error => console.error('Error playing lose point sound:', error));
     }
-} 
+}
