@@ -100,6 +100,7 @@ ul {
 .slide button {
     margin: 0;
     padding: 10px 20px;
+    border-radius: 10px;
 }
 
 .desktop-message, .rotate-message {
@@ -191,6 +192,8 @@ ul {
 .slide:nth-child(1) button {
     background-color: #4DA14D;
     color: white;
+    font-size: 21px;
+    font-weight: 600;
     width: 50%;
     margin-bottom: 20px; /* Adjust this value to move the button up */
 }
