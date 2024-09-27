@@ -201,13 +201,7 @@ ul {
 }
 
 /* Keep the general button styles */
-#rules-page button, #menu button, #login-form button, #game-area button:not(.choice), #login-form input {
-    background-color: #FFFFFF;
-    color: #333333;
-}
-
-/* Add more specific styles for the choice buttons */
-#game-area .choice {
+#rules-page button, #menu button, #login-form button, #game-area button.choice {
     padding: 15px 20px;
     font-size: 18px;
     background-color: #8B89E6;
@@ -218,12 +212,8 @@ ul {
     transition: background-color 0.3s;
 }
 
-#game-area .choice:hover {
-    background-color: #7A78D4; /* A slightly darker shade for hover effect */
-}
-
 #rules-page button:hover, #menu button:hover, #login-form button:hover, #game-area button:hover {
-    background-color: #EEEEEE;
+    background-color: #7A78D4;
 }
 
 #login-form input {
@@ -299,17 +289,6 @@ ul {
     gap: 10px;
     width: 80%;
     max-width: 250px;
-}
-
-.choice {
-    padding: 15px 20px;
-    font-size: 18px;
-    background-color: #8B89E6;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 
 .choice:hover {
