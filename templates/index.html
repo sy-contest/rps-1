@@ -60,10 +60,14 @@
             <button id="login-button">Login</button>
         </div>
         <div id="game-area" class="game-grid" style="display: none;">
-            <audio id="background-music" loop controls>
+            <audio id="background-music" loop>
                 <source src="/static/rps-bgm.mp3" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
+            <div id="music-controls">
+                <img src="/static/music.png" alt="Play Music" id="play-music-btn" class="music-control-btn">
+                <img src="/static/no-music.png" alt="Mute Music" id="mute-music-btn" class="music-control-btn" style="display: none;">
+            </div>
             <div class="game-upper-part">
                 <div id="opponent-info" class="opponent-info">
                     <img id="opponent-photo" src="" alt="Opponent">

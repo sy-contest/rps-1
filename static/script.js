@@ -4,6 +4,7 @@ let currentPlayer = null;
 let currentSlide = 0;
 let youtubePlayer;
 let backgroundMusic;
+let isMusicPlaying = false;
 
 fetch('/config')
     .then(response => {
@@ -39,7 +40,58 @@ function initializeEventListeners() {
     document.querySelectorAll('.choice').forEach(button => button.addEventListener('click', () => confirmChoice(button.dataset.choice)));
 
     backgroundMusic = document.getElementById('background-music');
+    document.getElementById('play-music-btn').addEventListener('click', toggleMusic);
+    document.getElementById('mute-music-btn').addEventListener('click', toggleMusic);
     console.log('Background music initialized:', backgroundMusic);
+}
+
+function toggleMusic() {
+    if (isMusicPlaying) {
+        backgroundMusic.pause();
+        isMusicPlaying = false;
+    } else {
+        backgroundMusic.play();
+        isMusicPlaying = true;
+    }
+    updateMusicControls();
+}
+
+function updateMusicControls() {
+    const playBtn = document.getElementById('play-music-btn');
+    const muteBtn = document.getElementById('mute-music-btn');
+    
+    if (isMusicPlaying) {
+        playBtn.style.display = 'none';
+        muteBtn.style.display = 'block';
+    } else {
+        playBtn.style.display = 'block';
+        muteBtn.style.display = 'none';
+    }
+}
+
+function playBackgroundMusic() {
+    console.log('Attempting to play background music');
+    if (backgroundMusic) {
+        backgroundMusic.play().then(() => {
+            console.log('Background music started successfully');
+            isMusicPlaying = true;
+            updateMusicControls();
+        }).catch(error => {
+            console.error('Error playing background music:', error);
+        });
+    } else {
+        console.error('Background music element not found');
+    }
+}
+
+function stopBackgroundMusic() {
+    console.log('Stopping background music');
+    if (backgroundMusic) {
+        backgroundMusic.pause();
+        backgroundMusic.currentTime = 0;
+        isMusicPlaying = false;
+        updateMusicControls();
+    }
 }
 
 function initYouTubePlayer() {
@@ -130,6 +182,7 @@ function login() {
             document.getElementById('login-form').style.display = 'none';
             document.getElementById('game-area').style.display = 'block';
             listenForGameUpdates();
+            playBackgroundMusic(); // Start playing music after successful login
         } else {
             alert(data.message || 'Failed to login');
         }
@@ -272,44 +325,9 @@ function checkOrientation() {
 window.addEventListener('load', checkOrientation);
 window.addEventListener('resize', checkOrientation);
 
-function playBackgroundMusic() {
-    console.log('Attempting to play background music');
-    if (backgroundMusic) {
-        backgroundMusic.play().then(() => {
-            console.log('Background music started successfully');
-        }).catch(error => {
-            console.error('Error playing background music:', error);
-        });
-    } else {
-        console.error('Background music element not found');
-    }
-}
-
-function stopBackgroundMusic() {
-    console.log('Stopping background music');
-    if (backgroundMusic) {
-        backgroundMusic.pause();
-        backgroundMusic.currentTime = 0;
-    }
-}
-
-// Make sure this function is called when transitioning to the game area
-function startGame(gameId) {
-    currentGameId = gameId;
-    showGameArea();
-    // ... rest of your game initialization code ...
-}
-
 function showGameArea() {
     console.log('Showing game area');
     document.getElementById('mobile-content').className = 'container game-page';
     document.getElementById('menu').style.display = 'none';
     document.getElementById('game-area').style.display = 'grid';
-    playBackgroundMusic();
-    
-    // Add a button to start the music
-    const startMusicButton = document.createElement('button');
-    startMusicButton.textContent = 'Start Music';
-    startMusicButton.addEventListener('click', playBackgroundMusic);
-    document.getElementById('game-area').appendChild(startMusicButton);
 }
