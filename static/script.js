@@ -388,4 +388,4 @@ function playLosePointSound() {
     if (isSoundEnabled) {
         losePointSound.play().catch(error => console.error('Error playing lose point sound:', error));
     }
-}
+} 
