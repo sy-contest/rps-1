@@ -182,6 +182,10 @@ ul {
      padding: 10px 20px;
  }
 
+ #rules-page h2, p {
+    color : black;
+ }
+
 .menu-grid, .form-grid {
     display: grid;
     gap: 20px;
