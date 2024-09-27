@@ -271,14 +271,17 @@ function listenForGameUpdates() {
             
             // Check for score changes and play sounds
             if (game.player1_score !== undefined && game.player2_score !== undefined) {
-                const currentScore = currentPlayer === 'player1' ? game.player1_score : game.player2_score;
-                const previousScore = currentPlayer === 'player1' ? 
-                    (this.previousGame?.player1_score ?? 0) : 
-                    (this.previousGame?.player2_score ?? 0);
+                const isPlayer1 = currentPlayer === 'player1';
+                const currentScore = isPlayer1 ? game.player1_score : game.player2_score;
+                const opponentScore = isPlayer1 ? game.player2_score : game.player1_score;
+                const previousCurrentScore = this.previousGame ? 
+                    (isPlayer1 ? this.previousGame.player1_score : this.previousGame.player2_score) : 0;
+                const previousOpponentScore = this.previousGame ? 
+                    (isPlayer1 ? this.previousGame.player2_score : this.previousGame.player1_score) : 0;
                 
-                if (currentScore > previousScore) {
+                if (currentScore > previousCurrentScore) {
                     playEarnPointSound();
-                } else if (currentScore < previousScore) {
+                } else if (opponentScore > previousOpponentScore) {
                     playLosePointSound();
                 }
             }
