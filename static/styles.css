@@ -179,13 +179,20 @@ ul {
 }
 
 .slide:nth-child(3) {
-    background-color: #FFFFFF;
-    color: #333;
+    background-color: #4CAF50;
+    color: white;
 }
 
 .slide:nth-child(3) button {
     background-color: #4CAF50;
     color: white;
+}
+
+.slide:nth-child(1) button {
+    background-color: #4DA14D;
+    color: black;
+    width: 30%;
+    margin-bottom: 20px; /* Adjust this value to move the button up */
 }
 
 #mobile-content.rules-page,
