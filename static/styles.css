@@ -37,7 +37,7 @@ h1, h2, h3 {
 }
 
 input, button {
-    width: 100%;
+    width: 80%;
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -269,8 +269,8 @@ ul {
 /* Keep the general button styles */
 #rules-page button, #menu button, #login-form button, #game-area button.choice {
     padding: 15px 20px;
-    font-size: 18px;
-    font-weight: 900;
+    font-size: 21px;
+    font-weight: 600;
     background-color: #8B89E6;
     color: white;
     border: none;
