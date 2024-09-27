@@ -5,6 +5,7 @@ let currentSlide = 0;
 let youtubePlayer;
 let backgroundMusic;
 let isMusicPlaying = false;
+let isSoundEnabled = true;
 let earnPointSound;
 let losePointSound;
 
@@ -46,6 +47,8 @@ function initializeEventListeners() {
     losePointSound = document.getElementById('lose-point-sound');
     document.getElementById('play-music-btn').addEventListener('click', toggleMusic);
     document.getElementById('mute-music-btn').addEventListener('click', toggleMusic);
+    document.getElementById('enable-sound-btn').addEventListener('click', toggleSound);
+    document.getElementById('disable-sound-btn').addEventListener('click', toggleSound);
     console.log('Background music initialized:', backgroundMusic);
 }
 
@@ -60,6 +63,11 @@ function toggleMusic() {
     updateMusicControls();
 }
 
+function toggleSound() {
+    isSoundEnabled = !isSoundEnabled;
+    updateSoundControls();
+}
+
 function updateMusicControls() {
     const playBtn = document.getElementById('play-music-btn');
     const muteBtn = document.getElementById('mute-music-btn');
@@ -70,6 +78,19 @@ function updateMusicControls() {
     } else {
         playBtn.style.display = 'block';
         muteBtn.style.display = 'none';
+    }
+}
+
+function updateSoundControls() {
+    const enableBtn = document.getElementById('enable-sound-btn');
+    const disableBtn = document.getElementById('disable-sound-btn');
+    
+    if (isSoundEnabled) {
+        enableBtn.style.display = 'none';
+        disableBtn.style.display = 'block';
+    } else {
+        enableBtn.style.display = 'block';
+        disableBtn.style.display = 'none';
     }
 }
 
@@ -186,7 +207,9 @@ function login() {
             document.getElementById('login-form').style.display = 'none';
             document.getElementById('game-area').style.display = 'block';
             listenForGameUpdates();
-            playBackgroundMusic(); // Start playing music after successful login
+            playBackgroundMusic();
+            updateMusicControls();
+            updateSoundControls();
         } else {
             alert(data.message || 'Failed to login');
         }
@@ -356,9 +379,13 @@ function showGameArea() {
 }
 
 function playEarnPointSound() {
-    earnPointSound.play().catch(error => console.error('Error playing earn point sound:', error));
+    if (isSoundEnabled) {
+        earnPointSound.play().catch(error => console.error('Error playing earn point sound:', error));
+    }
 }
 
 function playLosePointSound() {
-    losePointSound.play().catch(error => console.error('Error playing lose point sound:', error));
+    if (isSoundEnabled) {
+        losePointSound.play().catch(error => console.error('Error playing lose point sound:', error));
+    }
 }

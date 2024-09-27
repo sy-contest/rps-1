@@ -347,14 +347,21 @@ ul {
     margin-right: 10px; /* Keep the original margin for scissors */
 }
 
-#music-controls {
+#music-controls, #sound-controls {
     position: fixed;
     top: 10px;
-    right: 10px;
     z-index: 1000;
 }
 
-.music-control-btn {
+#music-controls {
+    right: 50px;
+}
+
+#sound-controls {
+    right: 10px;
+}
+
+.music-control-btn, .sound-control-btn {
     width: 30px;
     height: 30px;
     cursor: pointer;
