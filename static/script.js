@@ -299,7 +299,7 @@ function listenForGameUpdates() {
                 enableChoiceButtons();
             }
             
-            // Check for score changes and play sounds
+            // Check for score changes and play sound
             if (game.player1_score !== undefined && game.player2_score !== undefined) {
                 const isPlayer1 = currentPlayer === 'player1';
                 const currentScore = isPlayer1 ? game.player1_score : game.player2_score;
