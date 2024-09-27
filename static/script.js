@@ -226,9 +226,22 @@ function login() {
 }
 
 function confirmChoice(choice) {
-    if (confirm(`Are you sure you want to choose ${choice}?`)) {
+    const popup = document.getElementById('custom-popup');
+    const message = document.getElementById('popup-message');
+    const confirmButton = document.getElementById('popup-confirm');
+    const cancelButton = document.getElementById('popup-cancel');
+    
+    message.textContent = `Are you sure you want to choose ${choice}?`;
+    popup.style.display = 'flex';
+    
+    confirmButton.onclick = () => {
+        popup.style.display = 'none';
         makeChoice(choice);
-    }
+    };
+    
+    cancelButton.onclick = () => {
+        popup.style.display = 'none';
+    };
 }
 
 function makeChoice(choice) {
