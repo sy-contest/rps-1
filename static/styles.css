@@ -190,8 +190,8 @@ ul {
 
 .slide:nth-child(1) button {
     background-color: #4DA14D;
-    color: black;
-    width: 30%;
+    color: white;
+    width: 50%;
     margin-bottom: 20px; /* Adjust this value to move the button up */
 }
 
