@@ -338,8 +338,34 @@ function listenForGameUpdates() {
         } else if (game.status === 'finished') {
             disableChoiceButtons();
             document.getElementById('result').textContent = '';
+            showGameEndPopup(game);
         }
     });
+}
+
+function showGameEndPopup(game) {
+    const popup = document.getElementById('game-end-popup');
+    const title = document.getElementById('game-end-title');
+    const message = document.getElementById('game-end-message');
+    const closeButton = document.getElementById('game-end-close');
+
+    const isWinner = (currentPlayer === 'player1' && game.player1_score > game.player2_score) ||
+                     (currentPlayer === 'player2' && game.player2_score > game.player1_score);
+
+    if (isWinner) {
+        title.textContent = 'Congratulations!';
+        message.textContent = 'You won and qualified for the next game!';
+    } else {
+        title.textContent = 'Game Over';
+        message.textContent = 'Sorry, you lost. Thank you so much for participating and helping us build this foundation!';
+    }
+
+    popup.style.display = 'flex';
+
+    closeButton.onclick = () => {
+        popup.style.display = 'none';
+        showMenu();  // Return to the main menu after closing the popup
+    };
 }
 
 function updateCurrentPlayerInfo(gameData) {
