@@ -572,8 +572,8 @@ ul {
 
 .top-right-buttons {
     position: fixed;
-    top: 10px;
-    right: 10px;
+    top: 20px;
+    right: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
