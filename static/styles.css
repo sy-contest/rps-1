@@ -198,7 +198,12 @@ ul {
     max-width: 300px;
     height: auto;
     margin-bottom: 20px;
-    margin-top: 30%;
+}
+
+#login-form{
+    min-height: 100vh;
+    display : gird;
+    place-content: center;
 }
 
 .form-grid input, .form-grid button {
@@ -265,6 +270,12 @@ ul {
 
 #rules-page, #menu, #login-form, #game-area {
     background-color: transparent;
+}
+
+#menu{
+    min-height: 100vh;
+    display : gird;
+    place-content: center;
 }
 
 /* Keep the general button styles */
@@ -441,7 +452,7 @@ ul {
     background-color: #9999FF;
     padding: 5px 10px;
     border-radius: 10px;
-    margin: 5px 0;
+    margin: 1rem 0;
 }
 
 .game-upper-part {
