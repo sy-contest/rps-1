@@ -56,6 +56,7 @@
             <input type="text" id="game-id" placeholder="Enter game ID">
             <button id="login-button">Login</button>
         </div>
+
         <div id="game-area" class="game-grid" style="display: none;">
             <audio id="background-music" loop>
                 <source src="/static/rps-bgm.mp3" type="audio/mpeg">
@@ -67,44 +68,36 @@
             <audio id="lose-point-sound">
                 <source src="/static/LosingPoint.mp3" type="audio/mpeg">
             </audio>
-            <div id="music-controls">
-                <img src="/static/music.png" alt="Music Playing" id="play-music-btn" class="music-control-btn">
-                <img src="/static/no-music.png" alt="Music Muted" id="mute-music-btn" class="music-control-btn" style="display: none;">
+
+            <div class="top-right-buttons">
+                <img src="/static/sound.png" alt="Sound Effects Enabled" id="enable-sound-btn" class="icon-button">
+                <img src="/static/no-sound.png" alt="Sound Effects Disabled" id="disable-sound-btn" class="icon-button" style="display: none;">
+                <img src="/static/music.png" alt="Music Playing" id="play-music-btn" class="icon-button">
+                <img src="/static/no-music.png" alt="Music Muted" id="mute-music-btn" class="icon-button" style="display: none;">
             </div>
-            <div id="sound-controls">
-                <img src="/static/sound.png" alt="Sound Effects Enabled" id="enable-sound-btn" class="sound-control-btn">
-                <img src="/static/no-sound.png" alt="Sound Effects Disabled" id="disable-sound-btn" class="sound-control-btn" style="display: none;">
-            </div>
-            <div class="game-upper-part">
-                <div id="opponent-info" class="opponent-info">
-                    <img id="opponent-photo" src="" alt="Opponent">
-                    <span id="opponent-name"></span>
+
+            <div class="container">
+                <div class="circle-container">
+                    <img id="opponent-photo" src="" alt="Opponent" class="player-image">
+                    <div id="opponent-name" class="text-box"></div>
                 </div>
-                <div id="opponent-score" class="score">0</div>
-                <div id="result" class="result-grid"></div>
+                <div id="opponent-score" class="above">0</div>
+                <div class="divider"></div>
+                <div id="current-player-score" class="below">0</div>
             </div>
-            <div class="game-divider"></div> 
-            <div class="game-lower-part">
-                <div id="current-player-score" class="score">0</div>
-                <div id="choices" class="choices-grid">
-                    <button class="choice" data-choice="rock">
-                        <img src="/static/rock.png" alt="Rock" class="choice-icon">
-                        Rock
-                    </button>
-                    <button class="choice" data-choice="paper">
-                        <img src="/static/paper.png" alt="Paper" class="choice-icon">
-                        Paper
-                    </button>
-                    <button class="choice" data-choice="scissors">
-                        <img src="/static/scissors.png" alt="Scissors" class="choice-icon">
-                        Scissors
-                    </button>
+
+            <div class="buttons-container">
+                <div id="choices" class="buttons">
+                    <button class="choice" data-choice="rock"><i class="fas fa-hand-rock"></i> Rock</button>
+                    <button class="choice" data-choice="paper"><i class="fas fa-hand-paper"></i> Paper</button>
+                    <button class="choice" data-choice="scissors"><i class="fas fa-hand-scissors"></i> Scissors</button>
                 </div>
-                <div id="current-player" class="current-player-info">
-                    <div class="player-info-row">
-                        <img id="current-player-photo" src="" alt="Current Player">
-                        <span id="current-player-name"></span>
-                    </div>
+            </div>
+
+            <div id="current-player" class="rectangle">
+                <div class="rectangle-content">
+                    <img id="current-player-photo" src="" alt="Current Player" class="player2-image">
+                    <span id="current-player-name" class="player2-text"></span>
                 </div>
             </div>
         </div>

@@ -562,3 +562,145 @@ ul {
 #game-end-close:hover {
     background-color: #45a049;
 }
+
+/* Game area styles */
+.game-grid {
+    position: relative;
+    height: 100vh;
+    background-color: #9999FF;
+}
+
+.top-right-buttons {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 1000;
+}
+
+.icon-button {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.container {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.divider {
+    width: 100%;
+    height: 5px;
+    background-color: #8B89E6;
+    position: absolute;
+}
+
+.above, .below {
+    position: absolute;
+    color: white;
+    font: bold 18px 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.above { transform: translateY(-12.5px); }
+.below { transform: translateY(12.5px); }
+
+.circle-container {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.player-image, .player2-image {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.player-image { width: 100px; height: 100px; }
+.player2-image { width: 40px; height: 40px; flex-shrink: 0; }
+
+.text-box {
+    margin-top: 10px;
+    padding: 5px 10px;
+    color: white;
+    background-color: #8B89E6;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.buttons-container {
+    position: fixed;
+    inset: calc(50% + 10px) 0 60px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.buttons button {
+    padding: 10px 20px;
+    font: bold 16px sans-serif;
+    color: #fff;
+    background-color: #8B89E6;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttons button:active { transform: scale(0.98); }
+
+.buttons button i {
+    margin-right: 8px;
+}
+
+.buttons button i.fa-hand-scissors { transform: rotate(90deg); }
+
+.rectangle {
+    width: 60%;
+    height: 50px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: white;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    overflow: hidden;
+}
+
+.player2-text {
+    color: black;
+    font-size: 16px;
+    position: absolute;
+    left: calc(50% + 20px);
+    transform: translateX(-50%);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 60px);
+}
+
+.rectangle-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
