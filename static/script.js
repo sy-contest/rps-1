@@ -359,11 +359,10 @@ function listenForGameUpdates() {
 function showGameEndPopup(game) {
     console.log('Showing game end popup');
     const popup = document.getElementById('game-end-popup');
-    const title = document.getElementById('game-end-title');
-    const message = document.getElementById('game-end-message');
+    const content = document.querySelector('#game-end-popup .popup-content');
     const closeButton = document.getElementById('game-end-close');
     
-    if (!popup || !title || !message || !closeButton) {
+    if (!popup || !content || !closeButton) {
         console.error('Game end popup elements not found');
         return;
     }
@@ -371,18 +370,33 @@ function showGameEndPopup(game) {
     const isWinner = (currentPlayer === 'player1' && game.player1_score > game.player2_score) ||
                      (currentPlayer === 'player2' && game.player2_score > game.player1_score);
     
+    content.innerHTML = ''; // Clear existing content
+    
     if (isWinner) {
-        title.innerHTML = '<span style="color: green;">Congratulations!</span> <img src="/static/winner.gif" alt="Winner" style="width: 50px; vertical-align: middle;">';
-        message.innerHTML = '<span style="color: black;">You won and qualified for the next game!</span>';
+        content.innerHTML = `
+            <img src="/static/winner.gif" alt="Winner" style="width: 100px; margin-bottom: 20px;">
+            <h2 style="color: green;">Congratulations!</h2>
+            <p style="color: black;">You won and qualified for the next game!</p>
+        `;
     } else {
-        title.innerHTML = '<span style="color: red;">Sorry, you lose</span> <img src="/static/sorry.gif" alt="Sorry" style="width: 50px; vertical-align: middle;">';
-        message.innerHTML = '<span style="color: black;">We are so sad to see you leave but thank you for participation in this event that helped us to fund building black flame group ngo</span> <img src="/static/heart.gif" alt="Heart" style="width: 30px; vertical-align: middle;">';
+        content.innerHTML = `
+            <img src="/static/sorry.gif" alt="Sorry" style="width: 100px; margin-bottom: 20px;">
+            <h2 style="color: red;">Sorry, you lose</h2>
+            <p style="color: black;">We are so sad to see you leave but thank you for participation in this event that helped us to fund building black flame group ngo <img src="/static/heart.gif" alt="Heart" style="width: 30px; vertical-align: middle;"></p>
+        `;
     }
+    
+    // Add close button
+    const newCloseButton = document.createElement('button');
+    newCloseButton.id = 'game-end-close';
+    newCloseButton.className = 'popup-button';
+    newCloseButton.textContent = 'Close';
+    content.appendChild(newCloseButton);
     
     popup.style.display = 'flex';
     console.log('Popup should be visible now');
     
-    closeButton.onclick = () => {
+    newCloseButton.onclick = () => {
         popup.style.display = 'none';
         showMenu();  // Return to the main menu after closing the popup
     };
