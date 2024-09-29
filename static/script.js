@@ -372,11 +372,11 @@ function showGameEndPopup(game) {
                      (currentPlayer === 'player2' && game.player2_score > game.player1_score);
     
     if (isWinner) {
-        title.textContent = 'Congratulations!';
-        message.textContent = 'You won and qualified for the next game!';
+        title.innerHTML = '<span style="color: green;">Congratulations!</span> <img src="/static/winner.gif" alt="Winner" style="width: 50px; vertical-align: middle;">';
+        message.innerHTML = '<span style="color: black;">You won and qualified for the next game!</span>';
     } else {
-        title.textContent = 'Game Over';
-        message.textContent = 'Sorry, you lost. Thank you so much for participating and helping us build this foundation!';
+        title.innerHTML = '<span style="color: red;">Sorry, you lose</span> <img src="/static/sorry.gif" alt="Sorry" style="width: 50px; vertical-align: middle;">';
+        message.innerHTML = '<span style="color: black;">We are so sad to see you leave but thank you for participation in this event that helped us to fund building black flame group ngo</span> <img src="/static/heart.gif" alt="Heart" style="width: 30px; vertical-align: middle;">';
     }
     
     popup.style.display = 'flex';
