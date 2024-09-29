@@ -374,13 +374,13 @@ function showGameEndPopup(game) {
     
     if (isWinner) {
         content.innerHTML = `
-            <img src="/static/winner.gif" alt="Winner" style="width: 100px; margin-bottom: 20px;">
+            <img src="/static/winner.gif" alt="Winner" style="width: 50px; margin-bottom: 20px;">
             <h2 style="color: green;">Congratulations!</h2>
             <p style="color: black;">You won and qualified for the next game!</p>
         `;
     } else {
         content.innerHTML = `
-            <img src="/static/sorry.gif" alt="Sorry" style="width: 100px; margin-bottom: 20px;">
+            <img src="/static/sorry.gif" alt="Sorry" style="width: 50px; margin-bottom: 20px;">
             <h2 style="color: red;">Sorry, you lose</h2>
             <p style="color: black;">We are so sad to see you leave but thank you for participation in this event that helped us to fund building black flame group ngo <img src="/static/heart.gif" alt="Heart" style="width: 30px; vertical-align: middle;"></p>
         `;
