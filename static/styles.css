@@ -704,3 +704,7 @@ ul {
     width: 100%;
     position: relative;
 }
+
+button.choice{
+    width: 100%;
+}
