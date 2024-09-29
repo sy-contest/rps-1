@@ -183,7 +183,7 @@ function showMenu() {
 
 function watchStream() {
     alert('Watch Stream feature is not implemented yet.');
-}
+} 
 
 function showLoginForm() {
     document.getElementById('mobile-content').className = 'container login-page';
