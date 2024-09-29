@@ -347,21 +347,30 @@ function listenForGameUpdates() {
             previousGame = {...game};
         } else if (game.status === 'finished') {
             disableChoiceButtons();
-            document.getElementById('result').textContent = '';
+            if (document.getElementById('result')) {
+                document.getElementById('result').textContent = '';
+            }
+            console.log('Game finished, showing end popup');
             showGameEndPopup(game);
         }
     });
 }
 
 function showGameEndPopup(game) {
+    console.log('Showing game end popup');
     const popup = document.getElementById('game-end-popup');
     const title = document.getElementById('game-end-title');
     const message = document.getElementById('game-end-message');
     const closeButton = document.getElementById('game-end-close');
-
+    
+    if (!popup || !title || !message || !closeButton) {
+        console.error('Game end popup elements not found');
+        return;
+    }
+    
     const isWinner = (currentPlayer === 'player1' && game.player1_score > game.player2_score) ||
                      (currentPlayer === 'player2' && game.player2_score > game.player1_score);
-
+    
     if (isWinner) {
         title.textContent = 'Congratulations!';
         message.textContent = 'You won and qualified for the next game!';
@@ -369,9 +378,10 @@ function showGameEndPopup(game) {
         title.textContent = 'Game Over';
         message.textContent = 'Sorry, you lost. Thank you so much for participating and helping us build this foundation!';
     }
-
+    
     popup.style.display = 'flex';
-
+    console.log('Popup should be visible now');
+    
     closeButton.onclick = () => {
         popup.style.display = 'none';
         showMenu();  // Return to the main menu after closing the popup
